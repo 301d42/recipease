@@ -1,0 +1,10 @@
+<h2> My Recipes</h2>
+<ul>
+  <% arr. forEach(recipe => { %>
+  <li class="cards">
+    <%- include('../layout/card', {recipe: recipe}) %>
+    
+
+  </li>
+  <% }); %>
+</section>
