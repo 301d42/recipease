@@ -1,22 +1,26 @@
 # final_project
 
-**Author**: Your Name Goes Here
+**Authors**: Tim Schoen, Milo Anderson, Chris Ball, Jasmin Arensdorf
 
 **Version**: 1.0.0 
 
 ## Overview
  
-## User-Stories
+## **User-Stories**
 
-*As a user I would like a web app that I can search for a recipe and get a recipe based on ingredients.
+#### MVP
 
-*As a user I would like to select a recipe so that I can see nutritional data.
+- As a user I would like a web app that I can search for a recipe and get a recipe based on ingredients.
 
-*As a user I would like to add or remove recipes from my saved-recipe collection.
+- As a user I would like to select a recipe so that I can see nutritional data.
 
-*As a user I would like to add or remove ingredients from a recipe in order to customize the recipe.
+- As a user I would like to add or remove recipes from my saved-recipe collection.
 
-*As a user I would like the ability to make changes to a recipe and have correct nutritional information displayed.  
+- As a user I would like to add or remove ingredients from a recipe in order to customize the recipe.
+
+#### Stretch Goals
+
+- As a user I would like the ability to make changes to a recipe and have correct nutritional information displayed.  
 
 
 
@@ -32,4 +36,3 @@
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource.-->
 
 ## Credits and Collaborations
-  Collaborators -- Tim Schoen, Milo Anderson, Chris Ball, Jasmin Arensdorf 
