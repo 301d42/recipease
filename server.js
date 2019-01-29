@@ -38,31 +38,34 @@ app.use(
 
 // Routes
 app.get('/', homePage);
-app.get('/search', searchRecipes);
+app.get('/search', showSearchForm);
+app.post('/results', searchRecipes);
 app.post('/recipe', saveRecipe);
 app.get('/recipe/:id', getOneRecipe);
 
 // Catch-all
-app.get('*', createErrorMiddleware('Page not found'));
+app.get('*', (req, res) => res.status(404).send('This route does not exist'));
 
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 // --- Helper Functions --- //
 
-function createErrorMiddleware(error) {
-  return function(req, res) {
-    res.render('pages/error', {error});
-  }
-}
-
 function handleError(err, res) {
   console.error(err);
-  res.render('pages/error', (err));
+  res.render('/error', (err));
 }
 
 function homePage(req, res) {
-  res.render('pages/index');
+  let SQL = 'SELECT * FROM recipes;'; // JOIN users ON recipes.user_id=$1;';
+  return client.query(SQL)
+    .then((recipes) => {
+      res.render('pages/index', {recipes: recipes.rows});
+    }).catch(error => handleError(error));
+}
+
+function showSearchForm(req, res) {
+  res.render('pages/search/search');
 }
 
 function getOneRecipe(req, res) {
@@ -90,7 +93,7 @@ function searchRecipes(req, res) {
       });
     })
     .then(recipes => {
-      res.render('pages/search', {recipes});
+      res.render('pages/search/results', {recipes});
     }).catch(error => handleError(error));
 }
 
