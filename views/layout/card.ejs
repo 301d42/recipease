@@ -5,4 +5,16 @@
   <% ingredients.forEach( ingredient =>{ %>    
   <li class="ingredient-li"><%= ingredient %></li>
   <% }); %>
+  <% cautions.forEach( caution =>{ %>    
+    <li class="labels-li"><%= caution %></li>
+  <% }); %>
+  <% health_labels.forEach( ingredient =>{ %>    
+    <li class="labels-li"><%= health_labels %></li>
+  <% }); %>
+  <% diet_labels.forEach( ingredient =>{ %>    
+    <li class="labels-li"><%= diet_labels %></li>
+  <% }); %>
+  <h5> Calories : <%= recipe.calories %></h5>
+  
+
 </ul>
