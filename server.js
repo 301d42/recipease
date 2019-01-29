@@ -36,10 +36,8 @@ app.use(
   })
 );
 
-// API Routes
-// Renders the search form
-// app.get('/', homePage);
-
+// Routes
+app.get('/', homePage);
 app.get('/search', searchRecipes);
 
 // Catch-all
@@ -66,23 +64,17 @@ function homePage(req, res) {
 }
 
 function searchRecipes(req, res) {
-  console.log('Inside searchRecipes.');
   let url = `https://api.edamam.com/search?app_id=${process.env.EDAMAM_APP_ID}&app_key=${process.env.EDAMAM_API_KEY}&q=${req.query.q}`;
-
 
   return superagent.get(url)
     .then(response => {
-      // console.log('Response: ', response.body);
-      // console.log('Req.body: ', req);
       return response.body.hits.map((valItem) => {
         return new Recipe(valItem.recipe);
-      })
+      });
     })
-    .then(recipeInstances => {
-      console.log('Recipe instances: ', recipeInstances[0]);
-    })
-    .catch(error => handleError(error));
-
+    .then(recipes => {
+      res.render('pages/search', {recipes});
+    }).catch(error => handleError(error));
 }
 
 // Constructor
@@ -90,7 +82,7 @@ function Recipe(info) {
   this.recipe_name = info.label;
   this.url = info.url;
   this.image_url = info.image;
-  this.ingredients = info.ingredientLines.join('');
+  this.ingredients = JSON.stringify(info.ingredientLines);
   this.servings = info.yield;
   this.calories = Math.round( parseFloat(info.totalNutrients.ENERC_KCAL.quantity) * 1e2 ) / 1e2;
   this.total_fat = Math.round( parseFloat(info.totalNutrients.FAT.quantity) * 1e2 ) / 1e2;
@@ -103,6 +95,8 @@ function Recipe(info) {
   this.sugars = Math.round( parseFloat(info.totalNutrients.SUGAR.quantity) * 1e2 ) / 1e2;
   this.protein = Math.round( parseFloat(info.totalNutrients.PROCNT.quantity) * 1e2 ) / 1e2;
   this.potassium = Math.round( parseFloat(info.totalNutrients.K.quantity) * 1e2 ) / 1e2;
-  this.health_labels = info.dietLabels.join(',')+info.healthLabels.join(',')+info.cautions.join(',');
+  this.cautions = info.cautions ? JSON.stringify(info.cautions) : JSON.stringify([]);
+  this.health_labels = info.healthLabels ? JSON.stringify(info.healthLabels) : JSON.stringify([]);
+  this.diet_labels = info.dietLabels ? JSON.stringify(info.dietLabels) : JSON.stringify([]);
 }
 
