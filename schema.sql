@@ -10,8 +10,8 @@ CREATE TABLE users (
 CREATE TABLE recipes (
   id SERIAL PRIMARY KEY,
   recipe_name VARCHAR(255),
-	url VARCHAR(255);
-	source VARCHAR(255);
+	url VARCHAR(255),
+	source VARCHAR(255),
   image_url VARCHAR(255),
   ingredients VARCHAR(2550),
   servings INTEGER,

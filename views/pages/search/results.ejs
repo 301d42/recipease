@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('../layout/head') %>
+  <%- include('../../layout/head') %>
   <body>
     <%# include('../layout/header') %>
     <main>
@@ -10,9 +10,9 @@
       <section id="hero">
         <h2> Search Results</h2>
         <ul>
-          <% arr. forEach(recipe => { %>  
+          <% recipes.forEach(recipe => { %>  
             <li class="cards">
-              <%- include('../layout/card', {recipe: recipe}) %>
+              <%- include('../../layout/card', {recipe: recipe}) %>
             </li>
           <% }); %>
         </ul>
