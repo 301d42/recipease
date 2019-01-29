@@ -39,6 +39,8 @@ app.use(
 // Routes
 app.get('/', homePage);
 app.get('/search', searchRecipes);
+app.post('/recipe', saveRecipe);
+app.get('/recipe/:id', getOneRecipe);
 
 // Catch-all
 app.get('*', createErrorMiddleware('Page not found'));
@@ -63,6 +65,21 @@ function homePage(req, res) {
   res.render('pages/index');
 }
 
+function getOneRecipe(req, res) {
+  let recipe, substitutions;
+  let SQL = 'SELECT * FROM recipes WHERE id=$1;';
+  return client.query(SQL, [req.params.id])
+    .then((recipeResult) => {
+      recipe = recipeResult;
+      let SQL = 'SELECT * FROM substitutions WHERE recipe_id=$1;';
+      return client.query(SQL, [req.params.id]);
+    })
+    .then((substitutionResult) => {
+      substitutions = substitutionResult;
+      return res.render('/', {recipe, substitutions});
+    }).catch(error => handleError(error));
+}
+
 function searchRecipes(req, res) {
   let url = `https://api.edamam.com/search?app_id=${process.env.EDAMAM_APP_ID}&app_key=${process.env.EDAMAM_API_KEY}&q=${req.query.q}`;
 
@@ -77,10 +94,22 @@ function searchRecipes(req, res) {
     }).catch(error => handleError(error));
 }
 
-// Constructor
+function saveRecipe(req, res) {
+  let SQL = 'INSERT INTO recipes (recipe_name, url, source, image_url, ingredients, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium, cautions, health_labels, diet_labels, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20) RETURNING id;';
+  let {recipe_name, url, source, image_url, ingredients, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium, cautions, health_labels, diet_labels, user_id} = req.body;
+  let values = [recipe_name, url, source, image_url, ingredients, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium, cautions, health_labels, diet_labels, user_id];
+  return client.query(SQL, values)
+    .then((results) => {
+      return res.render(`/recipe/${results.rows[0].id}`);
+    }).catch(error => handleError(error));
+}
+
+// Constructors
+
 function Recipe(info) {
   this.recipe_name = info.label;
   this.url = info.url;
+  this.source = info.source;
   this.image_url = info.image;
   this.ingredients = JSON.stringify(info.ingredientLines);
   this.servings = info.yield;
@@ -95,8 +124,8 @@ function Recipe(info) {
   this.sugars = Math.round( parseFloat(info.totalNutrients.SUGAR.quantity) * 1e2 ) / 1e2;
   this.protein = Math.round( parseFloat(info.totalNutrients.PROCNT.quantity) * 1e2 ) / 1e2;
   this.potassium = Math.round( parseFloat(info.totalNutrients.K.quantity) * 1e2 ) / 1e2;
-  this.cautions = info.cautions ? JSON.stringify(info.cautions) : JSON.stringify([]);
-  this.health_labels = info.healthLabels ? JSON.stringify(info.healthLabels) : JSON.stringify([]);
-  this.diet_labels = info.dietLabels ? JSON.stringify(info.dietLabels) : JSON.stringify([]);
+  this.cautions = JSON.stringify(info.cautions ? info.cautions : []);
+  this.health_labels = JSON.stringify(info.healthLabels ? info.healthLabels : []);
+  this.diet_labels = JSON.stringify(info.dietLabels ? info.dietLabels : []);
 }
 

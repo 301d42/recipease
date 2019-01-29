@@ -11,6 +11,7 @@ CREATE TABLE recipes (
   id SERIAL PRIMARY KEY,
   recipe_name VARCHAR(255),
 	url VARCHAR(255);
+	source VARCHAR(255);
   image_url VARCHAR(255),
   ingredients VARCHAR(2550),
   servings INTEGER,
@@ -32,6 +33,7 @@ CREATE TABLE recipes (
 CREATE TABLE substitutions (
   id SERIAL PRIMARY KEY,
   ingredient VARCHAR(255),
+	addition BOOLEAN,
 	calories NUMERIC(6, 2),
 	total_fat NUMERIC(6, 2),
 	saturated_fat NUMERIC(6, 2),
