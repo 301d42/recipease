@@ -85,7 +85,7 @@ function getOneRecipe(req, res) {
 
 function searchRecipes(req, res) {
   let url = `https://api.edamam.com/search?app_id=${process.env.EDAMAM_APP_ID}&app_key=${process.env.EDAMAM_API_KEY}&q=${req.body.keyword}`;
-  
+
   if (req.body.balanced === 'on') url += '&diet=balanced';
   if (req.body.high_protein === 'on') url += '&diet=high-protein';
   if (req.body.low_carb === 'on') url += '&diet=low-carb';
@@ -96,7 +96,7 @@ function searchRecipes(req, res) {
   if (req.body.sugar_conscious === 'on') url += '&health=sugar-conscious';
   if (req.body.peanut_free === 'on') url += '&health=peanut-free';
   if (req.body.calories > 0) url += `&calories=${req.body.calories}`;
-  
+
   return superagent.get(url)
     .then(response => {
       return response.body.hits.map((valItem) => {
@@ -105,6 +105,7 @@ function searchRecipes(req, res) {
     })
     .then(recipes => {
       res.render('pages/search/results', {recipes});
+      console.log(recipes);
     }).catch(error => handleError(error));
 }
 
@@ -125,7 +126,7 @@ function Recipe(info) {
   this.url = info.url;
   this.source = info.source;
   this.image_url = info.image;
-  this.ingredients = info.ingredientLines ? `{${info.ingredientLines.join(',')}}` : '{}';
+  this.ingredients = info.ingredientLines ? info.ingredientLines : [];
   this.servings = info.yield;
   this.calories = Math.round( parseFloat(info.totalNutrients.ENERC_KCAL.quantity) * 1e2 ) / 1e2;
   this.total_fat = Math.round( parseFloat(info.totalNutrients.FAT.quantity) * 1e2 ) / 1e2;
@@ -138,8 +139,8 @@ function Recipe(info) {
   this.sugars = info.totalNutrients.SUGAR ? (Math.round( parseFloat(info.totalNutrients.SUGAR.quantity) * 1e2 ) / 1e2) : 0;
   this.protein = info.totalNutrients.PROCNT ? (Math.round( parseFloat(info.totalNutrients.PROCNT.quantity) * 1e2 ) / 1e2) : 0;
   this.potassium = info.totalNutrients.K ? (Math.round( parseFloat(info.totalNutrients.K.quantity) * 1e2 ) / 1e2) : 0;
-  this.cautions = info.cautions ? `{${info.cautions.join(',')}}` : '{}';
-  this.health_labels = info.health_labels ? `{${info.health_labels.join(',')}}` : '{}';
-  this.diet_labels = info.health_labels ? `{${info.health_labels.join(',')}}` : '{}';
+  this.cautions = info.cautions ? info.cautions : [];
+  this.health_labels = info.health_labels ? info.health_labels : [];
+  this.diet_labels = info.health_labels ? info.health_labels : [];
 }
 

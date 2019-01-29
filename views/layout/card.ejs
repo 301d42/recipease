@@ -2,16 +2,16 @@
 <img src="<%= recipe.image_url %>" alt="<%= recipe.recipe_name%>">
 <ul>
   <!-- ingredient array name is temporary  -->
-  <% JSON.parse(recipe.ingredients).forEach( ingredient =>{ %>    
+  <% recipe.ingredients.forEach( ingredient =>{ %>    
   <li class="ingredient-li"><%= ingredient %></li>
   <% }); %>
-  <% JSON.parse(recipe.cautions).forEach( caution =>{ %>    
+  <% recipe.cautions.forEach( caution =>{ %>    
     <li class="labels-li"><%= caution %></li>
   <% }); %>
-  <% JSON.parse(recipe.health_labels).forEach( health_label =>{ %>    
+  <% recipe.health_labels.forEach( health_label =>{ %>    
     <li class="labels-li"><%= health_label %></li>
   <% }); %>
-  <% JSON.parse(recipe.diet_labels).forEach( diet_label =>{ %>    
+  <% recipe.diet_labels.forEach( diet_label =>{ %>    
     <li class="labels-li"><%= diet_label %></li>
   <% }); %>
   <h5> Calories : <%= recipe.calories %></h5>
