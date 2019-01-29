@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../layout/head') %>
+  <body>
+    <%# include('../layout/header') %>
+    <main>
+      <aside>
+        <%#include('../layout/nav') %>
+     
+      <section id="hero">
+        <h2> Search Results</h2>
+        <form action="/results" method="POST">
+          <input class="search-input" type="text" name="keyword" placeholder="Enter ingredient or recipe name" required>
+          <h2>Diet</h2>
+          <fieldset>
+            <label for="balanced">
+              <span>Balanced</span>
+              <input class="checkbox" type="checkbox" name="balanced" alt="Protein/Fat/Carb values in 15/35/50 ratio">
+            </label>
+            <label for="high-fiber">
+              <span>High-Fiber</span>
+              <input class="checkbox" type="checkbox" name="high-fiber" alt="More than 5g fiber per serving">
+            </label>
+            <label for="high-protein">
+              <span>High-Protein</span>
+              <input class="checkbox" type="checkbox" name="high-protein" alt="More than 50% of total calories from proteins">
+            </label>
+            <label for="low-carb">
+              <span>Low-Carb</span>
+              <input class="checkbox" type="checkbox" name="low-carb" alt="Less than 20% of total calories from carbs">
+            </label>
+            <label for="low-fat">
+              <span>Low-Fat</span>
+              <input class="checkbox" type="checkbox" name="low-fat" alt="Less than 15% of total calories of total calories from fat">
+            </label>
+            <label for="low-sodium">
+              <span>Low-Sodium</span>
+              <input class="checkbox" type="checkbox" name="low-sodium" alt="Less than 140mg Na per serving">
+            </label>
+          </fieldset>
+
+          <h2>Health</h2>
+          <fieldset>
+            <label for="alcohol-free">
+              <span>Alcohol-Free</span>
+              <input class="checkbox" type="checkbox" name="alcohol-free" alt="No alcohol used or contained">
+            </label>
+            <label for="celery-free">
+              <span>Celery-Free</span>
+              <input class="checkbox" type="checkbox" name="celery-free" alt="Does not contain celery or derivatives">
+            </label>
+            <label for="crustacean-free">
+              <span>Crustacean-Free</span>
+              <input class="checkbox" type="checkbox" name="crustacean-free" alt="Does not contain crustacean (shrimp, lobster etc.) or derivatives">
+            </label>
+            <label for="dairy-free">
+              <span>Dairy-Free</span>
+              <input class="checkbox" type="checkbox" name="dairy-free" alt="No dairy; no lactose">
+            </label>
+            <label for="egg-free">
+              <span>Egg-Free</span>
+              <input class="checkbox" type="checkbox" name="egg-free" alt="No eggs or products containing eggs">
+            </label>
+            <label for="fish-free">
+              <span>Fish-Free</span>
+              <input class="checkbox" type="checkbox" name="fish-free" alt="No fish or fish derivatives">
+            </label>
+            <label for="gluten-free">
+              <span>Gluten-Free</span>
+              <input class="checkbox" type="checkbox" name="gluten-free" alt="No ingredients containing gluten">
+            </label>
+            <label for="kidney-friendly">
+              <span>Kidney-Friendly</span>
+              <input class="checkbox" type="checkbox" name="kidney-friendly" alt="Per serving - phosphorus less than 250 mg AND potassium less than 500 mg AND sodium: less than 500 mg">
+            </label>
+            <label for="kosher">
+              <span>Kosher</span>
+              <input class="checkbox" type="checkbox" name="kosher" alt="Contains only ingredients allowed by the kosher diet.  Howevr it does not guarantee kosher preparation of the ingredients themselves">
+            </label>
+            <label for="low-potassium">
+              <span>Low-Potassium</span>
+              <input class="checkbox" type="checkbox" name="low-potassium" alt="Less than 150 mg per serving">
+            </label>
+            <label for="lupine-free">
+              <span>Lupine-Free</span>
+              <input class="checkbox" type="checkbox" name="lupine-free" alt="Does not contain lupine or derivatives">
+            </label>
+          </fieldset>
+          <fieldset>
+            <label for="calories">
+              <span>Maximum Calories Per Serving</span>
+              <input class="calories" type="number" name="calories" min="5" value="500" alt="Maximum calories per serving">
+            </label>
+            <label for="yield">
+                <span># Servings</span>
+                <input class="calories" type="number" name="yield" min="1" alt="Number of servings">
+              </label>
+          </fieldset>
+        </form>
+      </section>
+      <aside>
+        <%# include('./layout/ads') %>
+      </aside>
+    </main>
+    <footer>
+      <%# include('./layout/footer') %>
+    </footer>
+  </body>
+</html>
