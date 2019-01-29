@@ -84,8 +84,7 @@ function getOneRecipe(req, res) {
 }
 
 function searchRecipes(req, res) {
-  let url = `https://api.edamam.com/search?app_id=${process.env.EDAMAM_APP_ID}&app_key=${process.env.EDAMAM_API_KEY}&q=${req.query.q}`;
-
+  let url = `https://api.edamam.com/search?app_id=${process.env.EDAMAM_APP_ID}&app_key=${process.env.EDAMAM_API_KEY}&q=${req.body.keyword}`;
   return superagent.get(url)
     .then(response => {
       return response.body.hits.map((valItem) => {
