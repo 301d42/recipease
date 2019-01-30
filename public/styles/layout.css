@@ -41,9 +41,10 @@ nav ul {
 
 #hero h2 {
   text-align: center;
-  padding-top: 10px;
+  padding-top: 15px;
   font-family: 'Josefin Sans', sans-serif;
   font-size: 22px;
+  letter-spacing: -.05em;
 }
 
 aside.left {
