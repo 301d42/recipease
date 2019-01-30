@@ -1,0 +1,82 @@
+nav a {
+  display: inline-block;
+  color: white;
+  width: 80%;
+  margin: 10px auto;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    "img name"
+    "img source"
+    "img servings"
+    "img calories"
+    "diets ."
+    "diets-li diets-li"
+    "healths ."
+    "healths-li healths-li"
+    ". button";
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 15px;
+  margin: 10px 10px;
+}
+
+.cards h3, .cards h4, .cards h5, .cards .servings, .cards .calories, .cards .diets, .cards .healths {
+  margin: 5px 0 0 5px;
+}
+
+.cards img {
+  height: 100%;
+  grid-area: img;
+}
+
+.cards h3 {
+  grid-area: name;
+}
+
+.cards h4 {
+  grid-area: source;
+}
+
+.cards .servings {
+  grid-area: servings;
+}
+
+.cards .calories {
+  grid-area: calories;
+}
+
+.cards .diets {
+  grid-area: diets;
+}
+
+.cards .diets-li {
+  grid-area: diets-li;
+}
+
+.cards .healths {
+  grid-area: healths;  
+}
+
+.cards .healths-li {
+  grid-area: healths-li;
+}
+
+.cards .details-button {
+  grid-area: button;
+}
+
+.cards .ingredients {
+  display: none;
+}
+
+.cards .nutrients {
+  display: none;
+}
+

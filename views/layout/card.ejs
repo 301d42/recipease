@@ -1,0 +1,19 @@
+<img src="<%= recipe.image_url %>" alt="<%= recipe.recipe_name%>">
+<h3><%= recipe.recipe_name %></h3>
+<h4><%= recipe.source %></h4>
+<h5 class="servings">Servings: <%= recipe.servings %></h5>
+<h5 class="calories">Calories: <%= recipe.calories %></h5>
+
+<ul class="diets">Diets:
+<% recipe.diet_labels.forEach( diet_label =>{ %>    
+  <li class="diets-li"><%= diet_label %></li>
+<% }); %>
+</ul>
+
+<ul class="healths">Healths:
+<% recipe.health_labels.forEach( health_label =>{ %>    
+  <li class="healths-li"><%= health_label %></li>
+<% }); %>
+</ul>
+
+
