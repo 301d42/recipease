@@ -9,14 +9,14 @@ main {
 header {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  background-color: gray;
+  background-color: rgb(161, 150, 147);
   padding: 10px auto;
 }
 
 header h1 {
   grid-column: 1;
   align-self: center;
-  padding: 10px 10px;
+  padding: 10px 15px;
   font-family: 'Rochester', cursive;
   font-size: 24px;
 }
@@ -25,22 +25,33 @@ header h4 {
   grid-column: 2;
   align-self: end;
   text-align: right;
-  padding: 15px 10px 10px;
+  padding: 15px 15px 10px;
   font-family: 'Josefin Sans', sans-serif;
   font-size: 18px;
+}
+
+nav {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
 nav ul {
   font-size: 0px;
 }
 
+#hero h2 {
+  text-align: center;
+  padding-top: 10px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 22px;
+}
+
 aside.left {
-  /* display: inline-block; */
-  background-color: rgb(33, 33, 33);
+  background-color: rgb(77, 75, 75);
 }
 
 #hero {
-  background-color: aqua;
+  background-color: rgb(247, 229, 208);
 }
 
 aside.right {

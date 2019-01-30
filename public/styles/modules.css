@@ -15,7 +15,6 @@ nav a {
 }
 
 .cards {
-  /* display: grid; */
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas:
@@ -28,63 +27,89 @@ nav a {
     "healths ."
     "healths-li healths-li"
     ". button";
-  padding: 10px;
+  /* padding: 10px; */
   border: 1px solid gray;
   border-radius: 15px;
   margin: 10px 10px;
 }
 
 .cards h3, .cards h4, .cards h5, .cards .servings, .cards .calories, .cards .diets, .cards .healths {
-  margin: 5px 0 0 5px;
+  margin: 5px 5px 0 5px;
+  font-family: 'Krub', sans-serif;
 }
 
 .cards img {
-  /* height: 100%; */
   max-width: 100%;
   grid-area: img;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom: 1px solid gray;
 }
 
 .cards h3 {
   grid-area: name;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .cards h4 {
   grid-area: source;
+  font-size: 14px;
 }
 
 .cards .servings {
   grid-area: servings;
+  font-size: 14px;
 }
 
 .cards .calories {
   grid-area: calories;
+  border-bottom: 1px solid gray;
+  padding-bottom: 5px;
+  font-size: 14px;
 }
 
 .cards .diets {
   grid-area: diets;
+  font-weight: bold;
+  display: block;
+  font-size: 0px;
 }
 
 .cards .diets-li {
   grid-area: diets-li;
 }
 
+.cards .diets-li, .cards .healths-li {
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 12px;
+  display: inline-block;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
 .cards .healths {
   grid-area: healths;  
+  font-weight: bold;
+  display: block;
+  font-size: 0px;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid gray;
 }
 
 .cards .healths-li {
   grid-area: healths-li;
 }
 
+.cards .labels {
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+}
+
 .cards .details-button {
   grid-area: button;
 }
-
-.cards .ingredients {
-  display: none;
-}
-
-.cards .nutrients {
-  display: none;
-}
-
