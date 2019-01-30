@@ -1,2 +1,23 @@
 <!DOCTYPE html>
-<html lang="en"></html>
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../layout/head') %>
+  <body>
+    <% include('../layout/header') %>
+    <main>
+      <aside>
+        <%include('../layout/nav') %>
+     
+      <section id="hero">
+        <h2> Sorry, we are unable to fulfill your request.</h2>
+        <p> <%= err %></p>
+      </section>
+      <aside>
+        <%# include('./layout/ads') %>
+      </aside>
+    </main>
+    <footer>
+      <%# include('./layout/footer') %>
+    </footer>
+  </body>
+</html>

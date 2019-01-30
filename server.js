@@ -43,6 +43,7 @@ app.post('/results', searchRecipes);
 app.post('/recipe', saveRecipe);
 app.get('/recipe/:id', getOneRecipe);
 app.delete('/recipe/:id', deleteRecipe);
+app.get('/about', aboutPage);
 
 // Catch-all
 app.get('*', (req, res) => res.status(404).send('This route does not exist'));
@@ -83,6 +84,10 @@ function homePage(req, res) {
       const formattedRecipes = formatDataForRender(recipes.rows);
       res.render('pages/index', {recipes: formattedRecipes});
     }).catch(error => handleError(error));
+}
+
+function aboutPage(req,res){
+  res.render('pages/about');
 }
 
 function showSearchForm(req, res) {
