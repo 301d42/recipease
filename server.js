@@ -56,11 +56,21 @@ function handleError(err, res) {
   res.render('/error', (err));
 }
 
+function formatDataForRender(recipes) {
+  return recipes.map((recipe) => {
+    recipe.ingredients = recipe.ingredients ? recipe.ingredients.split('%%') : [];
+    recipe.health_labels = recipe.health_labels ? recipe.health_labels.split('%%') : [];
+    recipe.diet_labels = recipe.diet_labels ? recipe.diet_labels.split('%%') : [];
+    return recipe;
+  });
+}
+
 function homePage(req, res) {
   let SQL = 'SELECT * FROM recipes;'; // JOIN users ON recipes.user_id=$1;';
   return client.query(SQL)
     .then((recipes) => {
-      res.render('pages/index', {recipes: recipes.rows});
+      const formattedRecipes = formatDataForRender(recipes.rows);
+      res.render('pages/index', {recipes: formattedRecipes});
     }).catch(error => handleError(error));
 }
 
@@ -69,18 +79,20 @@ function showSearchForm(req, res) {
 }
 
 function getOneRecipe(req, res) {
-  let recipe, substitutions;
+  // declare variables so we can access them throughout the promises
+  let recipes, substitutions;
   let SQL = 'SELECT * FROM recipes WHERE id=$1;';
   return client.query(SQL, [req.params.id])
     .then((recipeResult) => {
-      recipe = recipeResult;
-      let SQL = 'SELECT * FROM substitutions WHERE recipe_id=$1;';
-      return client.query(SQL, [req.params.id]);
+      recipes = formatDataForRender(recipeResult.rows);
+/*       let SQL = 'SELECT * FROM substitutions WHERE recipe_id=$1;';
+      return client.query(SQL, [req.params.id]); */
+      return res.render('pages/one-recipe', {recipes});
     })
-    .then((substitutionResult) => {
+/*     .then((substitutionResult) => {
       substitutions = substitutionResult;
       return res.render('/', {recipe, substitutions});
-    }).catch(error => handleError(error));
+    }) */.catch(error => handleError(error));
 }
 
 function searchRecipes(req, res) {
@@ -104,39 +116,22 @@ function searchRecipes(req, res) {
       });
     })
     .then(recipes => {
-      res.render('pages/search/results', {recipes});
-      console.log(recipes);
+      const formattedRecipes = formatDataForRender(recipes);
+      res.render('pages/search/results', {recipes: formattedRecipes});
     }).catch(error => handleError(error));
 }
 
 function saveRecipe(req, res) {
-  let SQL = 'INSERT INTO recipes (recipe_name, url, source, image_url, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium,  user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING id;';
-  let {recipe_name, url, source, image_url, ingredients, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium,health_labels, diet_labels, user_id} = req.body;
-  let values = [recipe_name, url, source, image_url, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium, user_id];
+  let SQL = 'INSERT INTO recipes (recipe_name, url, source, image_url, ingredients, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium, health_labels, diet_labels) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18) RETURNING id;';
+
+  let {recipe_name, url, source, image_url, ingredients, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium, health_labels, diet_labels} = req.body;
+
+  let values = [recipe_name, url, source, image_url, ingredients, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium, health_labels, diet_labels];
+  
   return client.query(SQL, values)
-    .then(mainId=> {  //mainId--id(in recipes table FK in other tables)
-      console.log('ln 118 Recipie ID return, FK other TABLES:', mainId);
-      ingredients.forEach(ingredient =>{
-        let SQL = 'INSERT INTO ingredients (recipe_id,ingredient) VALUES ($1,$2) RETURNING recipe_id;';
-        let values = [mainId, ingredient];
-        return client.query(SQL, values)
-      })
-
-      health_labels.forEach(health =>{
-        let SQL = 'INSERT INTO healths (recipe_id,health_label) VALUES ($1,$2) RETURNING recipe_id;';
-        let values = [mainId, health];
-        return client.query(SQL,values)
-      })
-
-      diet_labels.forEach(diet =>{
-        let SQL = 'INSERT INTO dietss (recipe_id,diet) VALUES ($1,$2) RETURNING recipe_id;';
-        let values = [mainId, diet];
-        return client.query(SQL, values)
-      })
-      // ************************   redirect not finished.
-      return res.render(`/recipe/`)
-    })
-    .catch(error => handleError(error));
+    .then((results) => {
+      return res.render(`/recipe/${results.rows[0].id}`);
+    }).catch(error => handleError(error));
 }
 
 // Constructors
@@ -146,7 +141,7 @@ function Recipe(info) {
   this.url = info.url;
   this.source = info.source;
   this.image_url = info.image;
-  this.ingredients = info.ingredientLines ? info.ingredientLines : [];
+  this.ingredients = info.ingredientLines ? info.ingredientLines.join('%%') : [];
   this.servings = info.yield;
   this.calories = Math.round( parseFloat(info.totalNutrients.ENERC_KCAL.quantity) * 1e2 ) / 1e2;
   this.total_fat = Math.round( parseFloat(info.totalNutrients.FAT.quantity) * 1e2 ) / 1e2;
@@ -159,7 +154,6 @@ function Recipe(info) {
   this.sugars = info.totalNutrients.SUGAR ? (Math.round( parseFloat(info.totalNutrients.SUGAR.quantity) * 1e2 ) / 1e2) : 0;
   this.protein = info.totalNutrients.PROCNT ? (Math.round( parseFloat(info.totalNutrients.PROCNT.quantity) * 1e2 ) / 1e2) : 0;
   this.potassium = info.totalNutrients.K ? (Math.round( parseFloat(info.totalNutrients.K.quantity) * 1e2 ) / 1e2) : 0;
-  this.health_labels = info.healthLabels ? info.healthLabels : [];
-  this.diet_labels = info.dietLabels ? info.dietLabels : [];
+  this.health_labels = info.healthLabels ? info.healthLabels.join('%%') : [];
+  this.diet_labels = info.dietLabels ? info.dietLabels.join('%%') : [];
 }
-
