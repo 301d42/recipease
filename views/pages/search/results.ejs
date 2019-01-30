@@ -31,8 +31,28 @@
                 <li>Sodium: <%= recipe.sodium %>mg</li>
                 <li>Potassium: <%= recipe.potassium %>mg</li>
               </ul>
-
               <button class="details-button">Details</button>
+              <form method="post" action="/recipe" id="add-form">
+                <input name="recipe_name" value="<%= recipe.recipe_name %>">
+                <input name="url" value="<%= recipe.url %>">
+                <input name="source" value="<%= recipe.source %>">
+                <input name="image_url" value="<%= recipe.image_url %>">
+                <input name="ingredients" value="<%= recipe.ingredients %>">
+                <input name="servings" value="<%= recipe.servings %>">
+                <input name="calories" value="<%= recipe.calories %>">
+                <input name="total_fat" value="<%= recipe.total_fat %>">
+                <input name="saturated_fat" value="<%= recipe.saturated_fat %>">
+                <input name="cholesterol" value="<%= recipe.cholesterol %>">
+                <input name="sodium" value="<%= recipe.sodium %>">
+                <input name="total_carbohydrate" value="<%= recipe.total_carbohydrate %>">
+                <input name="dietary_fiber" value="<%= recipe.dietary_fiber %>">
+                <input name="sugars" value="<%= recipe.sugars %>">
+                <input name="protein" value="<%= recipe.protein %>">
+                <input name="potassium" value="<%= recipe.potassium %>">
+                <input name="health_labels" value="<%= recipe.health_labels %>">
+                <input name="diet_labels" value="<%= recipe.diet_labels %>">
+                <button type="submit">Add</button>
+              </form>
             </li>
           <% }); %>
         </ul>
