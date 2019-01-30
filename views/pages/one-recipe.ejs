@@ -14,13 +14,13 @@
             <li class="cards">
               <%- include('../layout/card', {recipe: recipe}) %>
 
-              <ul class="ingredients">
+              <ul class="ingredients hide <%= recipe.recipe_name.replace(' ', '_') %>">
                 <% recipe.ingredients.forEach( ingredient =>{ %>
                   <li class="ingredient-li"><%= ingredient %></li>
                 <% }); %>
               </ul>
 
-              <ul class="nutrients">
+              <ul class="nutrients hide <%= recipe.recipe_name.replace(' ', '_') %>">
                 <li>Total Fat: <%= recipe.total_fat %>g</li>
                 <li>Saturated Fat: <%= recipe.saturated_fat %>g</li>
                 <li>Total Carbs: <%= recipe.total_carbohydrate %>g</li>
@@ -31,7 +31,11 @@
                 <li>Sodium: <%= recipe.sodium %>mg</li>
                 <li>Potassium: <%= recipe.potassium %>mg</li>
               </ul>
-              <button class="details-button">Details</button>
+              <button class="details-button" data-recipe_name="<%= recipe.recipe_name.replace(' ', '_') %>">Details</button>
+              <form method="post" action="/recipe/<%= recipe.id %>" class="hide <%= recipe.recipe_name.replace(' ', '_') %>">
+                <input type="hidden" name="_method" value="delete">
+                <button type="submit">Delete</button>
+              </form>
             </li>
           <% }); %>
         </ul>
@@ -44,5 +48,7 @@
     <footer>
       <%# include('../layout/footer') %>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="../scripts/app.js"></script>
   </body>
 </html>
