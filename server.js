@@ -110,13 +110,33 @@ function searchRecipes(req, res) {
 }
 
 function saveRecipe(req, res) {
-  let SQL = 'INSERT INTO recipes (recipe_name, url, source, image_url, ingredients, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium, cautions, health_labels, diet_labels, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20) RETURNING id;';
-  let {recipe_name, url, source, image_url, ingredients, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium, cautions, health_labels, diet_labels, user_id} = req.body;
-  let values = [recipe_name, url, source, image_url, ingredients, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium, cautions, health_labels, diet_labels, user_id];
+  let SQL = 'INSERT INTO recipes (recipe_name, url, source, image_url, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium,  user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING id;';
+  let {recipe_name, url, source, image_url, ingredients, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium,health_labels, diet_labels, user_id} = req.body;
+  let values = [recipe_name, url, source, image_url, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium, user_id];
   return client.query(SQL, values)
-    .then((results) => {
-      return res.render(`/recipe/${results.rows[0].id}`);
-    }).catch(error => handleError(error));
+    .then(mainId=> {  //mainId--id(in recipes table FK in other tables)
+      console.log('ln 118 Recipie ID return, FK other TABLES:', mainId);
+      ingredients.forEach(ingredient =>{
+        let SQL = 'INSERT INTO ingredients (recipe_id,ingredient) VALUES ($1,$2) RETURNING recipe_id;';
+        let values = [mainId, ingredient];
+        return client.query(SQL, values)
+      })
+
+      health_labels.forEach(health =>{
+        let SQL = 'INSERT INTO healths (recipe_id,health_label) VALUES ($1,$2) RETURNING recipe_id;';
+        let values = [mainId, health];
+        return client.query(SQL,values)
+      })
+
+      diet_labels.forEach(diet =>{
+        let SQL = 'INSERT INTO dietss (recipe_id,diet) VALUES ($1,$2) RETURNING recipe_id;';
+        let values = [mainId, diet];
+        return client.query(SQL, values)
+      })
+      // ************************   redirect not finished.
+      return res.render(`/recipe/`)
+    })
+    .catch(error => handleError(error));
 }
 
 // Constructors
@@ -140,7 +160,8 @@ function Recipe(info) {
   this.protein = info.totalNutrients.PROCNT ? (Math.round( parseFloat(info.totalNutrients.PROCNT.quantity) * 1e2 ) / 1e2) : 0;
   this.potassium = info.totalNutrients.K ? (Math.round( parseFloat(info.totalNutrients.K.quantity) * 1e2 ) / 1e2) : 0;
   this.cautions = info.cautions ? info.cautions : [];
-  this.health_labels = info.health_labels ? info.health_labels : [];
-  this.diet_labels = info.health_labels ? info.health_labels : [];
+  this.health_labels = info.healthLabels ? info.healthLabels : [];
+  this.diet_labels = info.dietLabels ? info.dietLabels : [];
+  console.log(this.diet_labels);
 }
 
