@@ -42,6 +42,7 @@ app.get('/search', showSearchForm);
 app.post('/results', searchRecipes);
 app.post('/recipe', saveRecipe);
 app.get('/recipe/:id', getOneRecipe);
+app.delete('/recipe/:id', deleteRecipe);
 
 // Catch-all
 app.get('*', (req, res) => res.status(404).send('This route does not exist'));
@@ -63,6 +64,16 @@ function formatDataForRender(recipes) {
     recipe.diet_labels = recipe.diet_labels ? recipe.diet_labels.split('%%') : [];
     return recipe;
   });
+}
+
+// --- Route Handlers --- //
+
+function deleteRecipe(req, res) {
+  const SQL = 'DELETE FROM recipes WHERE id=$1;';
+  return client.query(SQL, [req.params.id])
+    .then(() => {
+      res.redirect('/');
+    }).catch(error => handleError(error));
 }
 
 function homePage(req, res) {
@@ -130,7 +141,7 @@ function saveRecipe(req, res) {
   
   return client.query(SQL, values)
     .then((results) => {
-      return res.render(`/recipe/${results.rows[0].id}`);
+      return res.redirect(`/recipe/${results.rows[0].id}`);
     }).catch(error => handleError(error));
 }
 
