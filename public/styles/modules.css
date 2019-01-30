@@ -79,12 +79,3 @@ nav a {
 .cards .details-button {
   grid-area: button;
 }
-
-.cards .ingredients {
-  display: none;
-}
-
-.cards .nutrients {
-  display: none;
-}
-
