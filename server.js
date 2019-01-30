@@ -159,9 +159,7 @@ function Recipe(info) {
   this.sugars = info.totalNutrients.SUGAR ? (Math.round( parseFloat(info.totalNutrients.SUGAR.quantity) * 1e2 ) / 1e2) : 0;
   this.protein = info.totalNutrients.PROCNT ? (Math.round( parseFloat(info.totalNutrients.PROCNT.quantity) * 1e2 ) / 1e2) : 0;
   this.potassium = info.totalNutrients.K ? (Math.round( parseFloat(info.totalNutrients.K.quantity) * 1e2 ) / 1e2) : 0;
-  this.cautions = info.cautions ? info.cautions : [];
   this.health_labels = info.healthLabels ? info.healthLabels : [];
   this.diet_labels = info.dietLabels ? info.dietLabels : [];
-  console.log(this.diet_labels);
 }
 
