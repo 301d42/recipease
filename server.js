@@ -56,14 +56,21 @@ function handleError(err, res) {
   res.render('/error', (err));
 }
 
+function formatDataForRender(recipes) {
+  return recipes.map((recipe) => {
+    recipe.ingredients = recipe.ingredients ? recipe.ingredients.split('%%') : [];
+    recipe.health_labels = recipe.health_labels ? recipe.health_labels.split('%%') : [];
+    recipe.diet_labels = recipe.diet_labels ? recipe.diet_labels.split('%%') : [];
+    return recipe;
+  });
+}
+
 function homePage(req, res) {
   let SQL = 'SELECT * FROM recipes;'; // JOIN users ON recipes.user_id=$1;';
   return client.query(SQL)
     .then((recipes) => {
-/*       recipes.rows.ingredients = recipes.rows.ingredients.split('%%');
-      recipes.rows.healthLabels = recipes.rows.healthLabels.split('%%');
-      recipes.rows.dietLabels = recipes.rows.dietLabels.split('%%'); */
-      res.render('pages/index', {recipes: recipes.rows});
+      const formattedRecipes = formatDataForRender(recipes.rows);
+      res.render('pages/index', {recipes: formattedRecipes});
     }).catch(error => handleError(error));
 }
 
@@ -77,18 +84,10 @@ function getOneRecipe(req, res) {
   let SQL = 'SELECT * FROM recipes WHERE id=$1;';
   return client.query(SQL, [req.params.id])
     .then((recipeResult) => {
-      //console.log('recipeResult: ', recipeResult.rows[0]);
-      recipes = [];
-      recipes.push(recipeResult.rows[0]);
-      const formattedRecipes = recipes.map((recipe) => {
-        recipe.ingredients = recipe.ingredients ? recipe.ingredients.split('%%') : [];
-        recipe.health_labels = recipe.health_labels ? recipe.health_labels.split('%%') : [];
-        recipe.diet_labels = recipe.diet_labels ? recipe.diet_labels.split('%%') : [];
-        return recipe;
-      });
+      recipes = formatDataForRender(recipeResult.rows);
 /*       let SQL = 'SELECT * FROM substitutions WHERE recipe_id=$1;';
       return client.query(SQL, [req.params.id]); */
-      return res.render('pages/one-recipe', {recipes: formattedRecipes});
+      return res.render('pages/one-recipe', {recipes});
     })
 /*     .then((substitutionResult) => {
       substitutions = substitutionResult;
@@ -117,14 +116,8 @@ function searchRecipes(req, res) {
       });
     })
     .then(recipes => {
-      const formattedRecipes = recipes.map((recipe) => {
-        recipe.ingredients = recipe.ingredients ? recipe.ingredients.split('%%') : [];
-        recipe.health_labels = recipe.health_labels ? recipe.health_labels.split('%%') : [];
-        recipe.diet_labels = recipe.diet_labels ? recipe.diet_labels.split('%%') : [];
-        return recipe;
-      });
+      const formattedRecipes = formatDataForRender(recipes);
       res.render('pages/search/results', {recipes: formattedRecipes});
-      //console.log('recipes obj: ', formattedRecipes);
     }).catch(error => handleError(error));
 }
 
@@ -137,7 +130,6 @@ function saveRecipe(req, res) {
   
   return client.query(SQL, values)
     .then((results) => {
-      console.log('results: ', results);
       return res.render(`/recipe/${results.rows[0].id}`);
     }).catch(error => handleError(error));
 }
