@@ -31,7 +31,7 @@
                 <li>Sodium: <%= recipe.sodium %>mg</li>
                 <li>Potassium: <%= recipe.potassium %>mg</li>
               </ul>
-              <button class="details-button" data-recipe_name="<%= recipe.recipe_name.replace(' ', '_') %>">Details</button>
+              <button class="details-button" data-recipe_name="<%= recipe.recipe_name.replace(' ', '_') %>">Show Details</button>
               <form method="post" action="/recipe/<%= recipe.id %>" class="hide <%= recipe.recipe_name.replace(' ', '_') %>">
                 <input type="hidden" name="_method" value="delete">
                 <button type="submit">Delete</button>
