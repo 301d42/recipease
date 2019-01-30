@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../layout/head') %>
+  <body>
+    <%- include('../layout/header') %>
+    <main>
+      <aside class="left">
+        <%- include('../layout/nav') %>
+      </aside>
+      <section id="hero">
+        <h2> Search Results</h2>
+        <ul>
+          <% recipes.forEach(recipe => { %>  
+            <li class="cards">
+              <%- include('../layout/card', {recipe: recipe}) %>
+
+              <ul class="ingredients">
+                <% recipe.ingredients.forEach( ingredient =>{ %>
+                  <li class="ingredient-li"><%= ingredient %></li>
+                <% }); %>
+              </ul>
+
+              <ul class="nutrients">
+                <li>Total Fat: <%= recipe.total_fat %>g</li>
+                <li>Saturated Fat: <%= recipe.saturated_fat %>g</li>
+                <li>Total Carbs: <%= recipe.total_carbohydrate %>g</li>
+                <li>Dietary Fiber: <%= recipe.dietary_fiber %>g</li>
+                <li>Sugars: <%= recipe.sugars %>g</li>
+                <li>Protein: <%= recipe.protein %>g</li>
+                <li>Cholesterol: <%= recipe.cholesterol %>mg</li>
+                <li>Sodium: <%= recipe.sodium %>mg</li>
+                <li>Potassium: <%= recipe.potassium %>mg</li>
+              </ul>
+              <button class="details-button">Details</button>
+            </li>
+          <% }); %>
+        </ul>
+      </section>
+      <aside class="right">
+        <p>Right aside.</p>
+        <%# include('../layout/ads') %>
+      </aside>
+    </main>
+    <footer>
+      <%# include('../layout/footer') %>
+    </footer>
+  </body>
+</html>
