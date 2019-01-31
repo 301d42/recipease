@@ -1,8 +1,8 @@
 <img src="<%= recipe.image_url %>" alt="<%= recipe.recipe_name %>">
 <h3><%= recipe.recipe_name %></h3>
-<h4><%= recipe.source %></h4>
-<h5 class="servings">Servings: <%= recipe.servings %></h5>
-<h5 class="calories">Calories: <%= recipe.calories %></h5>
+<h4>Source: <%= recipe.source %></h4>
+<h5 class="servings">Servings: <b><%= recipe.servings %></b></h5>
+<h5 class="calories">Calories Per Serving: <b><%= recipe.cal_per_serving %></b></h5>
 
 <ul class="diets">
   <h5 class="labels">Diets:</h5>
