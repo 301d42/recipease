@@ -46,6 +46,7 @@ app.delete('/recipe/:id', deleteRecipe);
 app.get('/about', aboutPage);
 app.get('/user', userForm);
 app.post('/user', manageUser);
+app.put('/substitutions', getSubstitutions);
 
 // Catch-all
 app.get('*', (req, res) => res.status(404).send('This route does not exist'));
@@ -62,9 +63,9 @@ function handleError(err, res) {
 
 function formatDataForRender(recipes) {
   return recipes.map((recipe) => {
-    recipe.ingredientsArray = recipe.ingredients ? recipe.ingredients.split('%%') : [];
-    recipe.health_labelsArray = recipe.health_labels ? recipe.health_labels.split('%%') : [];
-    recipe.diet_labelsArray = recipe.diet_labels ? recipe.diet_labels.split('%%') : [];
+    recipe.ingredientsArray = recipe.ingredients ? recipe.ingredients.split(';;') : [];
+    recipe.health_labelsArray = recipe.health_labels ? recipe.health_labels.split(';;') : [];
+    recipe.diet_labelsArray = recipe.diet_labels ? recipe.diet_labels.split(';;') : [];
     recipe.cal_per_serving = Math.round( parseFloat(recipe.calories / recipe.servings) * 1e2 ) / 1e2;
     recipe.identifier = recipe.recipe_name.replace(/ /g, '_');
     return recipe;
@@ -137,13 +138,23 @@ function getOneRecipe(req, res) {
 }
 
 function getSubstitutions(req, res) {
-  let url = `https://trackapi.nutritionix.com/v2/search/instant?query=${req.body.query}`;
-
-  return superagent.get(url)
-    .set({'x-app-id': process.env.X-APP-ID, 'x-app-key': process.env.X-APP-KEY, 'x-remote-user-id': 0})
+  const recipe_id = req.body.recipe_id;
+  const query = req.body.query;
+  const addition = req.body.addition;
+  let url = `https://trackapi.nutritionix.com/v2/natural/nutrients`;
+  return superagent.post(url)
+    .send(`{"query": "${query}"}`)
+    .set({
+      'x-app-id': process.env.X_APP_ID,
+      'x-app-key': process.env.X_APP_KEY,
+      'x-remote-user-id': 0
+    })
+    .set('Content-Type', 'application/json')
     .then((result) => {
-      const substitution = new Substitution(result.body.foods);
+      console.log('result: ', result.body.foods[0]);
+      const substitution = new Substitution(result.body.foods[0], query, recipe_id, addition);
       substitution.save();
+      return res.redirect(`/recipe/${recipe_id}`);
     });
 }
 
@@ -193,7 +204,7 @@ function Recipe(info) {
   this.url = info.url;
   this.source = info.source;
   this.image_url = info.image;
-  this.ingredients = info.ingredientLines ? info.ingredientLines.join('%%') : '';
+  this.ingredients = info.ingredientLines ? info.ingredientLines.join(';;') : '';
   this.servings = info.yield;
   this.calories = info.totalNutrients.ENERC_KCAL ? Math.round( parseFloat(info.totalNutrients.ENERC_KCAL.quantity) * 1e2 ) / 1e2 : 0;
   this.total_fat = info.totalNutrients.FAT ? Math.round( parseFloat(info.totalNutrients.FAT.quantity) * 1e2 ) / 1e2 : 0;
@@ -206,13 +217,13 @@ function Recipe(info) {
   this.sugars = info.totalNutrients.SUGAR ? (Math.round( parseFloat(info.totalNutrients.SUGAR.quantity) * 1e2 ) / 1e2) : 0;
   this.protein = info.totalNutrients.PROCNT ? (Math.round( parseFloat(info.totalNutrients.PROCNT.quantity) * 1e2 ) / 1e2) : 0;
   this.potassium = info.totalNutrients.K ? (Math.round( parseFloat(info.totalNutrients.K.quantity) * 1e2 ) / 1e2) : 0;
-  this.health_labels = info.healthLabels ? info.healthLabels.join('%%') : '';
-  this.diet_labels = info.dietLabels ? info.dietLabels.join('%%') : '';
+  this.health_labels = info.healthLabels ? info.healthLabels.join(';;') : '';
+  this.diet_labels = info.dietLabels ? info.dietLabels.join(';;') : '';
 }
 
-function Substitution(info) {
-  this.ingredients = ''; // will need to pass this in somehow; not returned by API
-  this.addition = false; // same as above
+function Substitution(info, query, recipe_id, addition) {
+  this.ingredients = query;
+  this.addition = addition === 'true' ? true : false;
   this.calories = info.nf_calories ? info.nf_calories : 0;
   this.total_fat = info.nf_total_fat ? info.nf_total_fat : 0;
   this.saturated_fat = info.nf_saturated_fat ? info.nf_saturated_fat : 0;
@@ -223,12 +234,25 @@ function Substitution(info) {
   this.sugars = info.nf_sugars ? info.nf_sugars : 0;
   this.protein = info.nf_protein ? info.nf_protein : 0;
   this.potassium = info.nf_potassium ? info.nf_potassium : 0;
-  this.recipe_id = 0; // fix me
+  this.recipe_id = recipe_id;
 }
 
 Substitution.prototype.save = function() {
-  // need to pass in recipe_id
-  const SQL = 'INSERT INTO substitutions (ingredient, addition, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium, recipe_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);';
+  const SQL = `INSERT INTO substitutions (
+    ingredient, 
+    addition, 
+    calories, 
+    total_fat, 
+    saturated_fat, 
+    cholesterol, 
+    sodium, 
+    total_carbohydrate, 
+    dietary_fiber, 
+    sugars, 
+    protein, 
+    potassium, 
+    recipe_id
+  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`;
 
   const values = Object.values(this);
   client.query(SQL, values);

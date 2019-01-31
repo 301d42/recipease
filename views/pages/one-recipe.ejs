@@ -4,9 +4,7 @@
   <body>
     <%- include('../layout/header') %>
     <main>
-      <aside class="left">
-        <%- include('../layout/nav') %>
-      </aside>
+      <%- include('../layout/nav') %>
       <section id="hero">
         <h2> Search Results</h2>
         <ul>
@@ -35,6 +33,14 @@
               <form method="post" action="/recipe/<%= recipe.id %>" class="hide <%= recipe.identifier %>">
                 <input type="hidden" name="_method" value="delete">
                 <button type="submit">Delete</button>
+              </form>
+              <form method="post" action="/substitutions" class="hide <%= recipe.identifier %>">
+                <input type="hidden" name="_method" value="put">
+                <input type="hidden" name="recipe_id" value="<%= recipe.id %>">
+                <input type="text" name="query">
+                <input type="radio" name="addition" value="true"> Add
+                <input type="radio" name="addition" value="false"> Remove
+                <button type="submit">Save Substitution</button>
               </form>
             </li>
           <% }); %>
