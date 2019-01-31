@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../layout/head') %>
+  <body>
+    <%- include('../layout/header') %>
+    <main>
+      <aside class="left">
+        <%- include('../layout/nav') %>
+      </aside>
+      <section id="hero">
+        <h2>Enter Your Name:</h2>
+        <form method="post" action="/user">
+          <input type="text" name="username" required>
+          <button type="submit">Submit</button>
+        </form>
+      </section>
+      <aside class="right">
+        <p>Right aside.</p>
+        <%# include('../layout/ads') %>
+      </aside>
+    </main>
+    <footer>
+      <%- include('../layout/footer') %>
+    </footer>
+  </body>
+</html>

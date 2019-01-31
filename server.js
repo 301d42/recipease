@@ -44,6 +44,8 @@ app.post('/recipe', saveRecipe);
 app.get('/recipe/:id', getOneRecipe);
 app.delete('/recipe/:id', deleteRecipe);
 app.get('/about', aboutPage);
+app.get('/user', userForm);
+app.post('/user', manageUser);
 
 // Catch-all
 app.get('*', (req, res) => res.status(404).send('This route does not exist'));
@@ -70,6 +72,27 @@ function formatDataForRender(recipes) {
 }
 
 // --- Route Handlers --- //
+
+function userForm(req, res) {
+  return res.render('pages/user');
+}
+
+function manageUser(req, res) {
+  const username = req.body.username;
+  const sqlSelect = 'SELECT * FROM users WHERE name=$1;';
+  client.query(sqlSelect, [username])
+    .then((result) => {
+      if (result.rowCount > 0) {
+        return res.redirect('/');
+      } else {
+        const sqlInsert = 'INSERT INTO users (name) VALUES ($1) RETURNING id;';
+        client.query(sqlInsert, [username])
+          .then((result) => {
+            return res.redirect('/');
+          }).catch(error => handleError(error));
+      }
+    }).catch(error => handleError(error));
+}
 
 function deleteRecipe(req, res) {
   const SQL = 'DELETE FROM recipes WHERE id=$1;';
