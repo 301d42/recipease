@@ -33,12 +33,12 @@
               </ul>
               <button class="details-button" data-recipe_name="<%= recipe.recipe_name.replace(/ /g, '_') %>">Show Details</button>
               <form class="hide <%= recipe.recipe_name.replace(/ /g, '_') %>" method="post" action="/recipe" id="add-form">
-                <input name="recipe_name" value="<%= recipe.recipe_name %>">
-                <input name="url" value="<%= recipe.url %>">
-                <input name="source" value="<%= recipe.source %>">
-                <input name="image_url" value="<%= recipe.image_url %>">
+                <input type="hidden" name="recipe_name" value="<%= recipe.recipe_name %>">
+                <input type="hidden" name="url" value="<%= recipe.url %>">
+                <input type="hidden" name="source" value="<%= recipe.source %>">
+                <input type="hidden" name="image_url" value="<%= recipe.image_url %>">
 
-                <ul class="ingredients <%= recipe.recipe_name.replace(/ /g, '_') %>">
+                <ul class="ingredients hide <%= recipe.recipe_name.replace(/ /g, '_') %>">
                   <% recipe.ingredients.forEach( ingredient =>{ %>
                     <li><input type="text" value="<%= ingredient %>"></li>
                   <% }); %>
