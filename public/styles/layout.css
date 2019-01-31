@@ -80,26 +80,20 @@ nav ul {
 }
 
 .search-labels {
-  display: inline-block;
-  margin: 10px auto auto;
-  width: 49%;
-  vertical-align: top;
+  text-align: center;
 }
 
-/* .search-labels h3 {
-  display: inline-block;
-  width: 100%;
-} */
-
 .search-labels label {
-  margin: 0 17% 7px auto;
-  text-align: right;
-  display: block;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 12px;
+  display: inline-block;
+  margin-top: 5px;
+  margin-left: 5px;
 }
 
 .search-labels span {
-  display: inline-block;
-  width: 70%;
   padding: 5px 0;
 }
 

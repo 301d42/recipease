@@ -146,3 +146,6 @@ nav a {
   background-color: green;
 }
 
+.search-labels .selected {
+  background-color: gold;
+}

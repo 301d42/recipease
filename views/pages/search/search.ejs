@@ -10,52 +10,43 @@
       <section id="hero">
         <h2>Search For Recipes</h2>
         <form action="/results" method="POST">
-          <input class="search-input" type="text" name="keyword" placeholder="Enter ingredient or recipe name" required>
+          <input class="search-input" type="text" name="keyword" placeholder="Enter ingredient or recipe name">
           <fieldset class="search-labels">
             <h3>Dietary Restrictions</h3>
-            <label for="balanced">
-              <span>Balanced</span>
-              <input class="checkbox" type="checkbox" name="balanced" alt="Protein/Fat/Carb values in 15/35/50 ratio">
+            <label>Balanced
+              <input class="checkbox hide" type="checkbox" name="balanced" alt="Protein/Fat/Carb values in 15/35/50 ratio">
             </label>
-            <label for="high_protein">
-              <span>High-Protein</span>
-              <input class="checkbox" type="checkbox" name="high_protein" alt="More than 50% of total calories from proteins">
+            <label>High-Protein
+              <input class="checkbox hide" type="checkbox" name="high_protein" alt="More than 50% of total calories from proteins">
             </label>
-            <label for="low_carb">
-              <span>Low-Carb</span>
-              <input class="checkbox" type="checkbox" name="low_carb" alt="Less than 20% of total calories from carbs">
+            <label>Low-Carb
+              <input class="checkbox hide" type="checkbox" name="low_carb" alt="Less than 20% of total calories from carbs">
             </label>
-            <label for="low_fat">
-              <span>Low-Fat</span>
-              <input class="checkbox" type="checkbox" name="low_fat" alt="Less than 15% of total calories of total calories from fat">
+            <label>Low-Fat
+              <input class="checkbox hide" type="checkbox" name="low_fat" alt="Less than 15% of total calories of total calories from fat">
             </label>
-          </fieldset>
-
-          <fieldset class="search-labels">
-            <h3>Health</h3>
-            <label for="alcohol_free">
-              <span>Alcohol-Free</span>
-              <input class="checkbox" type="checkbox" name="alcohol_free" alt="No alcohol used or contained">
+            <label>Alcohol-Free
+              <input class="checkbox hide" type="checkbox" name="alcohol_free" alt="No alcohol used or contained">
             </label>                          
-            <label for="vegan">
+            <label>
               <span>Vegan</span>
-              <input class="checkbox" type="checkbox" name="vegan" alt="Vegan">
+              <input class="checkbox hide" type="checkbox" name="vegan" alt="Vegan">
             </label>                          
-            <label for="vegetarian">
+            <label>
               <span>Vegetarian</span>
-              <input class="checkbox" type="checkbox" name="vegetarian" alt="Vegetarian">
+              <input class="checkbox hide" type="checkbox" name="vegetarian" alt="Vegetarian">
             </label>                          
-            <label for="sugar_conscious">
+            <label>
               <span>Sugar Conscious</span>
-              <input class="checkbox" type="checkbox" name="sugar_conscious" alt="Sugar conscious">
+              <input class="checkbox hide" type="checkbox" name="sugar_conscious" alt="Sugar conscious">
             </label>                          
-            <label for="peanut_free">
+            <label>
               <span>Peanut Free</span>
-              <input class="checkbox" type="checkbox" name="peanut_free" alt="Peanut free">
+              <input class="checkbox hide" type="checkbox" name="peanut_free" alt="Peanut free">
             </label>                          
           </fieldset>
           <fieldset>
-            <label for="calories">
+            <label>
               <span>Maximum Calories Per Serving</span>
               <input class="calories" type="number" name="calories" alt="Maximum calories per serving">
             </label>
@@ -70,5 +61,7 @@
     <footer>
       <%# include('./layout/footer') %>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="../scripts/app.js"></script>
   </body>
 </html>
