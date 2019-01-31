@@ -14,13 +14,13 @@
             <li class="cards">
               <%- include('../layout/card', {recipe: recipe}) %>
 
-              <ul class="ingredients hide <%= recipe.recipe_name.replace(' ', '_') %>">
-                <% recipe.ingredients.forEach( ingredient =>{ %>
+              <ul class="ingredients hide <%= recipe.identifier %>">
+                <% recipe.ingredientsArray.forEach( ingredient =>{ %>
                   <li class="ingredient-li"><%= ingredient %></li>
                 <% }); %>
               </ul>
 
-              <ul class="nutrients hide <%= recipe.recipe_name.replace(' ', '_') %>">
+              <ul class="nutrients hide <%= recipe.identifier %>">
                 <li>Total Fat: <%= recipe.total_fat %>g</li>
                 <li>Saturated Fat: <%= recipe.saturated_fat %>g</li>
                 <li>Total Carbs: <%= recipe.total_carbohydrate %>g</li>
@@ -31,8 +31,8 @@
                 <li>Sodium: <%= recipe.sodium %>mg</li>
                 <li>Potassium: <%= recipe.potassium %>mg</li>
               </ul>
-              <button class="details-button" data-recipe_name="<%= recipe.recipe_name.replace(' ', '_') %>">Show Details</button>
-              <form method="post" action="/recipe/<%= recipe.id %>" class="hide <%= recipe.recipe_name.replace(' ', '_') %>">
+              <button class="details-button" data-recipe_name="<%= recipe.identifier %>">Show Details</button>
+              <form method="post" action="/recipe/<%= recipe.id %>" class="hide <%= recipe.identifier %>">
                 <input type="hidden" name="_method" value="delete">
                 <button type="submit">Delete</button>
               </form>
