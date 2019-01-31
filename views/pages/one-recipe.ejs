@@ -34,6 +34,7 @@
               <% substitutions.forEach((substitute) => { %>
                 <h4 class="hide <%= recipe.identifier %>"><%= substitute.ingredient %></h4>
                 <ul class="nutrients hide <%= recipe.identifier %>">
+                  <li>Calories: <%= substitute.calories %>g</li>
                   <li>Total Fat: <%= substitute.total_fat %>g</li>
                   <li>Saturated Fat: <%= substitute.saturated_fat %>g</li>
                   <li>Total Carbs: <%= substitute.total_carbohydrate %>g</li>

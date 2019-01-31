@@ -233,6 +233,18 @@ function Substitution(info, query, recipe_id, addition) {
   this.protein = info.nf_protein ? info.nf_protein : 0;
   this.potassium = info.nf_potassium ? info.nf_potassium : 0;
   this.recipe_id = recipe_id;
+  if (!this.addition) {
+    this.calories = this.calories * -1;
+    this.total_fat = this.total_fat * -1;
+    this.saturated_fat = this.saturated_fat * -1;
+    this.cholesterol = this.cholesterol * -1;
+    this.sodium = this.sodium * -1;
+    this.total_carbohydrate = this.total_carbohydrate * -1;
+    this.dietary_fiber = this.dietary_fiber * -1;
+    this.sugars = this.sugars * -1;
+    this.protein = this.protein * -1;
+    this.potassium = this.potassium * -1;
+  }
 }
 
 Substitution.prototype.save = function() {
