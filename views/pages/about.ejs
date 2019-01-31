@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../layout/head') %>
+  <body>
+    <%- include('../layout/header') %>
+    <main>
+      <aside class="left">
+        <%- include('../layout/nav') %>
+      </aside>
+      <section id="hero">
+        <h2>About</h2>
+        <ul>
+          <li class="cards">
+            <img src="./images/milo.jpg" alt="A picture of Milo">
+            <h3>Milo Anderson</h3>
+            <p>When Milo is not developing software, he enjoys reading science fiction and playing the guitar.</p>
+          </li>
+          <li class="cards">
+            <img src="./images/jasmin.png" alt="A Picture of Jasmin">
+            <h3>Jasmin Arensdorf</h3>
+            <p>Jasmin is a software developer.  </p>
+          </li>
+          <li class="cards">
+            <img src="./images/chris.jpg" alt="A picture of Chris">
+            <h3>Chris Ball</h3>
+            <p>Chris is a full-stack web developer with a passion for unique functionality, efficiency, and quality design. He comes from an cabinetmaking background with 6+ years of engineering experience in cabinet and furniture manufacturing. He loves solving complex problems and giving customers the product they've always dreamed of.</p>
+          </li>
+          <li class="cards">
+            <img src="./images/tim.jpg" alt="A picture of Tim">
+            <h3>Tim Schoen</h3>
+            <p>Tim is a software developer. He enjoys attending sporting events, and follows the Mariners with great interest.</p>
+          </li>
+        </ul>
+      </section>
+      <aside>
+        <%# include('./layout/ads') %>
+      </aside>
+    </main>
+    <footer>
+      <%- include('../layout/footer') %>
+    </footer>
+  </body>
+</html>

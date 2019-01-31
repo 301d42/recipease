@@ -2,17 +2,18 @@
 <html lang="en">
   <%- include('../layout/head') %>
   <body>
-    <%# include('../layout/header') %>
+    <%- include('../layout/header') %>
     <main>
-      <aside>
-        <%#include('../layout/nav') %>
-     
+      <aside class="left">
+        <%- include('../layout/nav') %>
+      </aside>
       <section id="hero">
-        <h2> My Recipes</h2>
+        <h2>My Recipes</h2>
         <ul>
           <% recipes.forEach(recipe => { %>
             <li class="cards">
               <%- include('../layout/card', {recipe: recipe}) %>
+              <button><a href="/recipe/<%= recipe.id %>">View Details</a></button>
             </li>
           <% }); %>
         </ul>
@@ -22,7 +23,7 @@
       </aside>
     </main>
     <footer>
-      <%# include('./layout/footer') %>
+      <% include('../layout/footer') %>
     </footer>
   </body>
 </html>
