@@ -124,6 +124,25 @@ nav a {
   font-size: 14px;
   border: 1px solid gray;
   font-weight: 300;
+  width: 120px;
+}
 
+.cards .save-button {
+  grid-area: button;
+  margin: 10px 10px 10px auto;
+  display: block;
+  background-color: rgb(161, 150, 147);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-family: 'Krub', sans-serif;
+  font-size: 14px;
+  border: 1px solid gray;
+  font-weight: 300;
+  width: 120px;
+}
+
+.cards .saved {
+  background-color: green;
 }
 
