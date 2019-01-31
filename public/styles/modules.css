@@ -1,8 +1,11 @@
-
+nav {
+  display:flex;
+  justify-content: center;
+}
 nav li {
   display: inline-block;
   margin: 7px auto;
-  width: 33.33%;
+  padding: 0 1.7em;
   font-size: 14px;
   box-sizing: border-box;
   text-align: center;
@@ -13,23 +16,20 @@ nav a {
   color: white;
   text-decoration: none;
 }
+#hero > ul{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
 .cards {
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-areas:
-    "img name"
-    "img source"
-    "img servings"
-    "img calories"
-    "diets ."
-    "diets-li diets-li"
-    "healths ."
-    "healths-li healths-li"
-    ". button";
   border: 1px solid gray;
   border-radius: 15px;
-  margin: 0px 25px 25px;
+  width: 90%;
+  /* max-width: 310px; */
+  /* margin-bottom: 30px; */
+  margin: 10px;
 }
 
 .cards h3, .cards h4, .cards h5, .cards .servings, .cards .calories, .cards .diets, .cards .healths {
@@ -38,38 +38,34 @@ nav a {
 }
 
 .cards img {
-    width: 100%;
-  grid-area: img;
+  width: 100%;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   border-bottom: 1px solid gray;
 }
 
 .cards h3 {
-  grid-area: name;
+
   font-size: 20px;
   font-weight: bold;
 }
 
 .cards h4 {
-  grid-area: source;
+
   font-size: 14px;
 }
 
 .cards .servings {
-  grid-area: servings;
   font-size: 14px;
 }
 
 .cards .calories {
-  grid-area: calories;
   border-bottom: 1px solid gray;
   padding-bottom: 5px;
   font-size: 14px;
 }
 
 .cards .diets {
-  grid-area: diets;
   font-weight: bold;
   display: block;
   font-size: 0px;
@@ -78,7 +74,7 @@ nav a {
 }
 
 .cards .diets-li {
-  grid-area: diets-li;
+
 }
 
 .cards .diets-li {
