@@ -11,3 +11,8 @@ $('.save-button').on('click', function() {
   $(this).addClass('saved');
   $(this).text('Saved!');
 });
+
+$('.search-labels > label').on('click', function() {
+  $(this).addClass('selected');
+});
+
