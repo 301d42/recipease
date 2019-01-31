@@ -5,16 +5,12 @@
 <h5 class="calories">Calories Per Serving: <b><%= recipe.cal_per_serving %></b></h5>
 
 <ul class="diets">
-  <h5 class="labels">Diets:</h5>
-<% recipe.diet_labels.forEach( diet_label =>{ %>    
+  <h5 class="labels">Dietary Rescrictions:</h5>
+<% recipe.diet_labelsArray.forEach( diet_label =>{ %>    
   <li class="diets-li"><%= diet_label %></li>
 <% }); %>
-</ul>
-
-<ul class="healths">
-  <h5 class="labels">Healths:</h5>
-<% recipe.health_labels.forEach( health_label =>{ %>    
-  <li class="healths-li"><%= health_label %></li>
+<% recipe.health_labelsArray.forEach( health_label =>{ %>    
+  <li class="diets-li"><%= health_label %></li>
 <% }); %>
 </ul>
 

@@ -44,6 +44,8 @@ app.post('/recipe', saveRecipe);
 app.get('/recipe/:id', getOneRecipe);
 app.delete('/recipe/:id', deleteRecipe);
 app.get('/about', aboutPage);
+app.get('/user', userForm);
+app.post('/user', manageUser);
 
 // Catch-all
 app.get('*', (req, res) => res.status(404).send('This route does not exist'));
@@ -60,15 +62,37 @@ function handleError(err, res) {
 
 function formatDataForRender(recipes) {
   return recipes.map((recipe) => {
-    recipe.ingredients = recipe.ingredients ? recipe.ingredients.split('%%') : [];
-    recipe.health_labels = recipe.health_labels ? recipe.health_labels.split('%%') : [];
-    recipe.diet_labels = recipe.diet_labels ? recipe.diet_labels.split('%%') : [];
+    recipe.ingredientsArray = recipe.ingredients ? recipe.ingredients.split('%%') : [];
+    recipe.health_labelsArray = recipe.health_labels ? recipe.health_labels.split('%%') : [];
+    recipe.diet_labelsArray = recipe.diet_labels ? recipe.diet_labels.split('%%') : [];
     recipe.cal_per_serving = Math.round( parseFloat(recipe.calories / recipe.servings) * 1e2 ) / 1e2;
+    recipe.identifier = recipe.recipe_name.replace(/ /g, '_');
     return recipe;
   });
 }
 
 // --- Route Handlers --- //
+
+function userForm(req, res) {
+  return res.render('pages/user');
+}
+
+function manageUser(req, res) {
+  const username = req.body.username;
+  const sqlSelect = 'SELECT * FROM users WHERE name=$1;';
+  client.query(sqlSelect, [username])
+    .then((result) => {
+      if (result.rowCount > 0) {
+        return res.redirect('/');
+      } else {
+        const sqlInsert = 'INSERT INTO users (name) VALUES ($1) RETURNING id;';
+        client.query(sqlInsert, [username])
+          .then((result) => {
+            return res.redirect('/');
+          }).catch(error => handleError(error));
+      }
+    }).catch(error => handleError(error));
+}
 
 function deleteRecipe(req, res) {
   const SQL = 'DELETE FROM recipes WHERE id=$1;';
@@ -169,7 +193,7 @@ function Recipe(info) {
   this.url = info.url;
   this.source = info.source;
   this.image_url = info.image;
-  this.ingredients = info.ingredientLines ? info.ingredientLines.join('%%') : [];
+  this.ingredients = info.ingredientLines ? info.ingredientLines.join('%%') : '';
   this.servings = info.yield;
   this.calories = info.totalNutrients.ENERC_KCAL ? Math.round( parseFloat(info.totalNutrients.ENERC_KCAL.quantity) * 1e2 ) / 1e2 : 0;
   this.total_fat = info.totalNutrients.FAT ? Math.round( parseFloat(info.totalNutrients.FAT.quantity) * 1e2 ) / 1e2 : 0;
@@ -182,8 +206,8 @@ function Recipe(info) {
   this.sugars = info.totalNutrients.SUGAR ? (Math.round( parseFloat(info.totalNutrients.SUGAR.quantity) * 1e2 ) / 1e2) : 0;
   this.protein = info.totalNutrients.PROCNT ? (Math.round( parseFloat(info.totalNutrients.PROCNT.quantity) * 1e2 ) / 1e2) : 0;
   this.potassium = info.totalNutrients.K ? (Math.round( parseFloat(info.totalNutrients.K.quantity) * 1e2 ) / 1e2) : 0;
-  this.health_labels = info.healthLabels ? info.healthLabels.join('%%') : [];
-  this.diet_labels = info.dietLabels ? info.dietLabels.join('%%') : [];
+  this.health_labels = info.healthLabels ? info.healthLabels.join('%%') : '';
+  this.diet_labels = info.dietLabels ? info.dietLabels.join('%%') : '';
 }
 
 function Substitution(info) {
