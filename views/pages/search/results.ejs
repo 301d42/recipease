@@ -14,13 +14,13 @@
             <li class="cards">
               <%- include('../../layout/card', {recipe: recipe}) %>
 
-              <ul class="ingredients hide <%= recipe.recipe_name.replace(/ /g, '_') %>">
-                <% recipe.ingredients.forEach( ingredient =>{ %>
+              <ul class="ingredients hide <%= recipe.identifier %>">
+                <% recipe.ingredientsArray.forEach( ingredient =>{ %>
                   <li class="ingredient-li"><%= ingredient %></li>
                 <% }); %>
               </ul>
 
-              <ul class="nutrients hide <%= recipe.recipe_name.replace(/ /g, '_') %>">
+              <ul class="nutrients hide <%= recipe.identifier %>">
                 <li>Total Fat: <%= recipe.total_fat %>g</li>
                 <li>Saturated Fat: <%= recipe.saturated_fat %>g</li>
                 <li>Total Carbs: <%= recipe.total_carbohydrate %>g</li>
@@ -31,20 +31,13 @@
                 <li>Sodium: <%= recipe.sodium %>mg</li>
                 <li>Potassium: <%= recipe.potassium %>mg</li>
               </ul>
-              <button class="details-button" data-recipe_name="<%= recipe.recipe_name.replace(/ /g, '_') %>">Show Details</button>
-              <form class="hide <%= recipe.recipe_name.replace(/ /g, '_') %>" method="post" action="/recipe" id="add-form">
+              <button class="details-button" data-recipe_name="<%= recipe.identifier %>">Show Details</button>
+              <form class="hide <%= recipe.identifier %>" method="post" action="/recipe" id="add-form">
                 <input type="hidden" name="recipe_name" value="<%= recipe.recipe_name %>">
                 <input type="hidden" name="url" value="<%= recipe.url %>">
                 <input type="hidden" name="source" value="<%= recipe.source %>">
                 <input type="hidden" name="image_url" value="<%= recipe.image_url %>">
-
-                <ul class="ingredients hide <%= recipe.recipe_name.replace(/ /g, '_') %>">
-                  <% recipe.ingredients.forEach( ingredient =>{ %>
-                    <li><input type="text" value="<%= ingredient %>"></li>
-                  <% }); %>
-                </ul>
-
-                
+                <input type="hidden" name="ingredients" value="<%= recipe.ingredients %>">               
                 
                 <input type="hidden" name="servings" value="<%= recipe.servings %>">
                 <input type="hidden" name="calories" value="<%= recipe.calories %>">
