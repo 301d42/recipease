@@ -63,6 +63,7 @@ function formatDataForRender(recipes) {
     recipe.ingredients = recipe.ingredients ? recipe.ingredients.split('%%') : [];
     recipe.health_labels = recipe.health_labels ? recipe.health_labels.split('%%') : [];
     recipe.diet_labels = recipe.diet_labels ? recipe.diet_labels.split('%%') : [];
+    recipe.cal_per_serving = Math.round( parseFloat(recipe.calories / recipe.servings) * 1e2 ) / 1e2;
     return recipe;
   });
 }
@@ -159,9 +160,9 @@ function Recipe(info) {
   this.image_url = info.image;
   this.ingredients = info.ingredientLines ? info.ingredientLines.join('%%') : [];
   this.servings = info.yield;
-  this.calories = Math.round( parseFloat(info.totalNutrients.ENERC_KCAL.quantity) * 1e2 ) / 1e2;
-  this.total_fat = Math.round( parseFloat(info.totalNutrients.FAT.quantity) * 1e2 ) / 1e2;
-  this.saturated_fat = Math.round( parseFloat(info.totalNutrients.FASAT.quantity) * 1e2 ) / 1e2;
+  this.calories = info.totalNutrients.ENERC_KCAL ? Math.round( parseFloat(info.totalNutrients.ENERC_KCAL.quantity) * 1e2 ) / 1e2 : 0;
+  this.total_fat = info.totalNutrients.FAT ? Math.round( parseFloat(info.totalNutrients.FAT.quantity) * 1e2 ) / 1e2 : 0;
+  this.saturated_fat = info.totalNutrients.FASAT ? Math.round( parseFloat(info.totalNutrients.FASAT.quantity) * 1e2 ) / 1e2 : 0;
   this.cholesterol =
     info.totalNutrients.CHOLE ? Math.round( parseFloat(info.totalNutrients.CHOLE.quantity) * 1e2 ) / 1e2 : 0;
   this.sodium = info.totalNutrients.NA ? (Math.round( parseFloat(info.totalNutrients.NA.quantity) * 1e2 ) / 1e2) : 0;
