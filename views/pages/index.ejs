@@ -4,11 +4,11 @@
   <body>
     <%- include('../layout/header') %>
     <main>
-      <aside>
+      <aside class="left">
         <%- include('../layout/nav') %>
-     
+      </aside>
       <section id="hero">
-        <h2> My Recipes</h2>
+        <h2>My Recipes</h2>
         <ul>
           <% recipes.forEach(recipe => { %>
             <li class="cards">
