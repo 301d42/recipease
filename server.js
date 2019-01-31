@@ -63,6 +63,7 @@ function formatDataForRender(recipes) {
     recipe.ingredients = recipe.ingredients ? recipe.ingredients.split('%%') : [];
     recipe.health_labels = recipe.health_labels ? recipe.health_labels.split('%%') : [];
     recipe.diet_labels = recipe.diet_labels ? recipe.diet_labels.split('%%') : [];
+    recipe.cal_per_serving = Math.round( parseFloat(recipe.calories / recipe.servings) * 1e2 ) / 1e2;
     return recipe;
   });
 }
@@ -172,5 +173,4 @@ function Recipe(info) {
   this.potassium = info.totalNutrients.K ? (Math.round( parseFloat(info.totalNutrients.K.quantity) * 1e2 ) / 1e2) : 0;
   this.health_labels = info.healthLabels ? info.healthLabels.join('%%') : [];
   this.diet_labels = info.dietLabels ? info.dietLabels.join('%%') : [];
-  this.cal_per_serving = info.totalNutrients.ENERC_KCAL ? Math.round( parseFloat(info.totalNutrients.ENERC_KCAL.quantity / info.yeild) * 1e2 ) / 1e2 : 0;
 }
