@@ -121,20 +121,18 @@ function showSearchForm(req, res) {
 }
 
 function getOneRecipe(req, res) {
-  // declare variables so we can access them throughout the promises
-  let recipes, substitutions;
-  let SQL = 'SELECT * FROM recipes WHERE id=$1;';
-  return client.query(SQL, [req.params.id])
+  let recipes;
+  const recipeSQL = 'SELECT * FROM recipes WHERE id=$1;';
+  return client.query(recipeSQL, [req.params.id])
     .then((recipeResult) => {
       recipes = formatDataForRender(recipeResult.rows);
-/*       let SQL = 'SELECT * FROM substitutions WHERE recipe_id=$1;';
-      return client.query(SQL, [req.params.id]); */
-      return res.render('pages/one-recipe', {recipes});
-    })
-/*     .then((substitutionResult) => {
-      substitutions = substitutionResult;
-      return res.render('/', {recipe, substitutions});
-    }) */.catch(error => handleError(error));
+      const substitutionsSQL = 'SELECT * FROM substitutions WHERE recipe_id=$1;';
+      return client.query(substitutionsSQL, [req.params.id])
+        .then((substitutions) => {
+          console.log('substitutions: ', substitutions);
+          return res.render('pages/one-recipe', {recipes: recipes, substitutions: substitutions.rows});
+        }).catch(error => handleError(error));
+    }).catch(error => handleError(error));
 }
 
 function getSubstitutions(req, res) {

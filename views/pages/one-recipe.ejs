@@ -29,7 +29,25 @@
                 <li>Sodium: <%= recipe.sodium %>mg</li>
                 <li>Potassium: <%= recipe.potassium %>mg</li>
               </ul>
+
+              <h3 class="hide <%= recipe.identifier %>">Substitutions</h3>
+              <% substitutions.forEach((substitute) => { %>
+                <h4 class="hide <%= recipe.identifier %>"><%= substitute.ingredient %></h4>
+                <ul class="nutrients hide <%= recipe.identifier %>">
+                  <li>Total Fat: <%= substitute.total_fat %>g</li>
+                  <li>Saturated Fat: <%= substitute.saturated_fat %>g</li>
+                  <li>Total Carbs: <%= substitute.total_carbohydrate %>g</li>
+                  <li>Dietary Fiber: <%= substitute.dietary_fiber %>g</li>
+                  <li>Sugars: <%= substitute.sugars %>g</li>
+                  <li>Protein: <%= substitute.protein %>g</li>
+                  <li>Cholesterol: <%= substitute.cholesterol %>mg</li>
+                  <li>Sodium: <%= substitute.sodium %>mg</li>
+                  <li>Potassium: <%= substitute.potassium %>mg</li>
+                </ul>
+              <% }) %>
+
               <button class="details-button" data-recipe_name="<%= recipe.identifier %>">Show Details</button>
+
               <form method="post" action="/recipe/<%= recipe.id %>" class="hide <%= recipe.identifier %>">
                 <input type="hidden" name="_method" value="delete">
                 <button type="submit">Delete</button>
