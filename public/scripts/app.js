@@ -13,6 +13,7 @@ $('.save-button').on('click', function() {
 });
 
 $('.search-labels > label').on('click', function() {
-  $(this).addClass('selected');
+  $(this).toggleClass('selected');
+  return false;
 });
 
