@@ -1,7 +1,8 @@
 nav {
-  display:flex;
+  display: flex;
   justify-content: center;
 }
+
 nav li {
   display: inline-block;
   margin: 7px auto;
@@ -16,8 +17,8 @@ nav a {
   color: white;
   text-decoration: none;
 }
-#hero > ul{
-  display:flex;
+#hero > ul {
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
@@ -27,8 +28,6 @@ nav a {
   border: 1px solid gray;
   border-radius: 15px;
   width: 90%;
-  /* max-width: 310px; */
-  /* margin-bottom: 30px; */
   margin: 10px;
 }
 
@@ -45,13 +44,11 @@ nav a {
 }
 
 .cards h3 {
-
   font-size: 20px;
   font-weight: bold;
 }
 
 .cards h4 {
-
   font-size: 14px;
 }
 
@@ -71,10 +68,6 @@ nav a {
   font-size: 0px;
   margin-bottom: 10px;
   padding-bottom: 10px
-}
-
-.cards .diets-li {
-
 }
 
 .cards .diets-li {

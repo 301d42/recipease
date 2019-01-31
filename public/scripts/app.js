@@ -14,6 +14,6 @@ $('.save-button').on('click', function() {
 
 $('.search-labels > label').on('click', function() {
   $(this).toggleClass('selected');
+  $(this).children('input').prop('checked') === true ? $(this).children('input').prop('checked', false) : $(this).children('input').prop('checked', true);
   return false;
 });
-

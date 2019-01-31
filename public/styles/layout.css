@@ -3,10 +3,6 @@ body {
   background-color: rgb(247, 229, 208);
 }
 
-main {
-
-}
-
 header {
   display: grid;
   grid-template-columns: 1fr 1fr;
