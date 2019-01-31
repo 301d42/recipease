@@ -1,5 +1,6 @@
 body {
   height: 100%;
+  background-color: rgb(247, 229, 208);
 }
 
 main {
@@ -11,6 +12,9 @@ header {
   grid-template-columns: 1fr 1fr;
   background-color: rgb(161, 150, 147);
   padding: 10px auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 header h1 {
@@ -31,12 +35,20 @@ header h4 {
 }
 
 nav {
+  position: fixed;
+  width: 100%;
+  top: 43px;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
+  background-color: rgb(77, 75, 75);
 }
 
 nav ul {
   font-size: 0px;
+}
+
+#hero {
+  padding-top: 73px;
 }
 
 #hero h2 {
@@ -50,10 +62,6 @@ nav ul {
 
 aside.left {
   background-color: rgb(77, 75, 75);
-}
-
-#hero {
-  background-color: rgb(247, 229, 208);
 }
 
 aside.right {
