@@ -73,13 +73,15 @@ nav a {
   font-weight: bold;
   display: block;
   font-size: 0px;
+  margin-bottom: 10px;
+  padding-bottom: 10px
 }
 
 .cards .diets-li {
   grid-area: diets-li;
 }
 
-.cards .diets-li, .cards .healths-li {
+.cards .diets-li {
   background-color: white;
   border-radius: 5px;
   padding: 5px;
@@ -87,19 +89,6 @@ nav a {
   display: inline-block;
   margin-top: 5px;
   margin-left: 5px;
-}
-
-.cards .healths {
-  grid-area: healths;  
-  font-weight: bold;
-  display: block;
-  font-size: 0px;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-}
-
-.cards .healths-li {
-  grid-area: healths-li;
 }
 
 .cards .labels {
@@ -112,7 +101,14 @@ nav a {
   border-top: 1px solid gray;
 }
 
-.cards .details-button {
+.cards p {
+  margin: 10px auto 0;
+  font-family: 'Krub', sans-serif;
+  font-size: 14px;
+  padding: 0 20px 20px;
+}
+
+.cards .details-button, .cards .save-button, .search-button {
   grid-area: button;
   margin: 10px 10px 10px auto;
   display: block;
@@ -127,22 +123,14 @@ nav a {
   width: 120px;
 }
 
-.cards .save-button {
-  grid-area: button;
-  margin: 10px 10px 10px auto;
-  display: block;
-  background-color: rgb(161, 150, 147);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 10px;
-  font-family: 'Krub', sans-serif;
-  font-size: 14px;
-  border: 1px solid gray;
-  font-weight: 300;
-  width: 120px;
+.search-button {
+  margin: 10px auto;
 }
 
 .cards .saved {
   background-color: green;
 }
 
+.search-labels .selected {
+  background-color: gold;
+}
