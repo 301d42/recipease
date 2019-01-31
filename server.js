@@ -112,6 +112,17 @@ function getOneRecipe(req, res) {
     }) */.catch(error => handleError(error));
 }
 
+function getSubstitutions(req, res) {
+  let url = `https://trackapi.nutritionix.com/v2/search/instant?query=${req.body.query}`;
+
+  return superagent.get(url)
+    .set({'x-app-id': process.env.X-APP-ID, 'x-app-key': process.env.X-APP-KEY, 'x-remote-user-id': 0})
+    .then((result) => {
+      const substitution = new Substitution(result.body.foods);
+      substitution.save();
+    });
+}
+
 function searchRecipes(req, res) {
   let url = `https://api.edamam.com/search?app_id=${process.env.EDAMAM_APP_ID}&app_key=${process.env.EDAMAM_API_KEY}&q=${req.body.keyword}`;
 
@@ -173,4 +184,28 @@ function Recipe(info) {
   this.potassium = info.totalNutrients.K ? (Math.round( parseFloat(info.totalNutrients.K.quantity) * 1e2 ) / 1e2) : 0;
   this.health_labels = info.healthLabels ? info.healthLabels.join('%%') : [];
   this.diet_labels = info.dietLabels ? info.dietLabels.join('%%') : [];
+}
+
+function Substitution(info) {
+  this.ingredients = ''; // will need to pass this in somehow; not returned by API
+  this.addition = false; // same as above
+  this.calories = info.nf_calories ? info.nf_calories : 0;
+  this.total_fat = info.nf_total_fat ? info.nf_total_fat : 0;
+  this.saturated_fat = info.nf_saturated_fat ? info.nf_saturated_fat : 0;
+  this.cholesterol = info.nf_cholesterol ? info.nf_cholesterol : 0;
+  this.sodium = info.nf_sodium ? info.nf_sodium : 0;
+  this.total_carbohydrate = info.nf_total_carbohydrate ? info.nf_total_carbohydrate : 0;
+  this.dietary_fiber = info.nf_dietary_fiber ? info.nf_dietary_fiber : 0;
+  this.sugars = info.nf_sugars ? info.nf_sugars : 0;
+  this.protein = info.nf_protein ? info.nf_protein : 0;
+  this.potassium = info.nf_potassium ? info.nf_potassium : 0;
+  this.recipe_id = 0; // fix me
+}
+
+Substitution.prototype.save = function() {
+  // need to pass in recipe_id
+  const SQL = 'INSERT INTO substitutions (ingredient, addition, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium, recipe_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);';
+
+  const values = Object.values(this);
+  client.query(SQL, values);
 }
