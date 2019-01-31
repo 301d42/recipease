@@ -54,7 +54,7 @@ nav ul {
 #hero h2 {
   text-align: center;
   padding-top: 15px;
-  padding-bottom: 12px;
+
   font-family: 'Josefin Sans', sans-serif;
   font-size: 22px;
   letter-spacing: -.05em;
@@ -97,10 +97,6 @@ nav ul {
   margin: 5px 2.5px 0;
 }
 
-aside.left {
-  background-color: rgb(77, 75, 75);
-}
-
 aside.right {
   background-color: rgb(103, 78, 78);
 }
@@ -113,43 +109,5 @@ footer {
   display: none;
 }
 
-@media (min-width: 960px) {
-  body {
-    display: grid;
-    grid-template-rows: 10% 85% 5%;
-    height: 100%;
-  }
 
-  main {
-    display: grid;
-    grid-template-columns: 15% 70% 15%;
-    grid-row: 2;
-  }
-
-  header {
-    grid-row: 1;
-    background-color: gray;
-  }
-
-  aside.left {
-    grid-column: 1;
-    background-color: rgb(33, 33, 33);
-  }
-
-  #hero {
-    grid-column: 2;
-    background-color: aqua;
-  }
-
-  aside.right {
-    grid-column: 3;
-    background-color: rgb(103, 78, 78);
-  }
-
-  footer {
-    grid-row: 3;
-    background-color: blue;
-  }
-
-}
 
