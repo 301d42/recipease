@@ -60,6 +60,49 @@ nav ul {
   letter-spacing: -.05em;
 }
 
+#hero h3 {
+  text-align: center;
+  padding: 15px 30px 12px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 18px;
+  letter-spacing: -.05em;
+}
+
+#hero .search-input {
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  padding: 5px;
+  border: 2px solid rgb(161, 150, 147);
+  text-align: center;
+  border-radius: 10px;
+  font-family: 'Krub', sans-serif;
+}
+
+.search-labels {
+  display: inline-block;
+  margin: 10px auto auto;
+  width: 49%;
+  vertical-align: top;
+}
+
+/* .search-labels h3 {
+  display: inline-block;
+  width: 100%;
+} */
+
+.search-labels label {
+  margin: 0 17% 7px auto;
+  text-align: right;
+  display: block;
+}
+
+.search-labels span {
+  display: inline-block;
+  width: 70%;
+  padding: 5px 0;
+}
+
 aside.left {
   background-color: rgb(77, 75, 75);
 }

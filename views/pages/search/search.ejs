@@ -8,50 +8,50 @@
         <%- include('../../layout/nav') %>
       </aside>
       <section id="hero">
-        <h2> Search Results</h2>
+        <h2>Search For Recipes</h2>
         <form action="/results" method="POST">
           <input class="search-input" type="text" name="keyword" placeholder="Enter ingredient or recipe name" required>
-          <h2>Diet</h2>
-          <fieldset>
+          <fieldset class="search-labels">
+            <h3>Dietary Restrictions</h3>
             <label for="balanced">
-              <input class="checkbox" type="checkbox" name="balanced" alt="Protein/Fat/Carb values in 15/35/50 ratio">
               <span>Balanced</span>
+              <input class="checkbox" type="checkbox" name="balanced" alt="Protein/Fat/Carb values in 15/35/50 ratio">
             </label>
             <label for="high_protein">
-              <input class="checkbox" type="checkbox" name="high_protein" alt="More than 50% of total calories from proteins">
               <span>High-Protein</span>
+              <input class="checkbox" type="checkbox" name="high_protein" alt="More than 50% of total calories from proteins">
             </label>
             <label for="low_carb">
-              <input class="checkbox" type="checkbox" name="low_carb" alt="Less than 20% of total calories from carbs">
               <span>Low-Carb</span>
+              <input class="checkbox" type="checkbox" name="low_carb" alt="Less than 20% of total calories from carbs">
             </label>
             <label for="low_fat">
-              <input class="checkbox" type="checkbox" name="low_fat" alt="Less than 15% of total calories of total calories from fat">
               <span>Low-Fat</span>
+              <input class="checkbox" type="checkbox" name="low_fat" alt="Less than 15% of total calories of total calories from fat">
             </label>
           </fieldset>
 
-          <h2>Health</h2>
-          <fieldset>
+          <fieldset class="search-labels">
+            <h3>Health</h3>
             <label for="alcohol_free">
-              <input class="checkbox" type="checkbox" name="alcohol_free" alt="No alcohol used or contained">
               <span>Alcohol-Free</span>
+              <input class="checkbox" type="checkbox" name="alcohol_free" alt="No alcohol used or contained">
             </label>                          
             <label for="vegan">
-              <input class="checkbox" type="checkbox" name="vegan" alt="Vegan">
               <span>Vegan</span>
+              <input class="checkbox" type="checkbox" name="vegan" alt="Vegan">
             </label>                          
             <label for="vegetarian">
-              <input class="checkbox" type="checkbox" name="vegetarian" alt="Vegetarian">
               <span>Vegetarian</span>
+              <input class="checkbox" type="checkbox" name="vegetarian" alt="Vegetarian">
             </label>                          
             <label for="sugar_conscious">
-              <input class="checkbox" type="checkbox" name="sugar_conscious" alt="Sugar conscious">
               <span>Sugar Conscious</span>
+              <input class="checkbox" type="checkbox" name="sugar_conscious" alt="Sugar conscious">
             </label>                          
             <label for="peanut_free">
-              <input class="checkbox" type="checkbox" name="peanut_free" alt="Peanut free">
               <span>Peanut Free</span>
+              <input class="checkbox" type="checkbox" name="peanut_free" alt="Peanut free">
             </label>                          
           </fieldset>
           <fieldset>
