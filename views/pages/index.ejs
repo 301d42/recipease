@@ -11,7 +11,7 @@
           <% recipes.forEach(recipe => { %>
             <li class="cards">
               <%- include('../layout/card', {recipe: recipe}) %>
-              <button><a href="/recipe/<%= recipe.id %>">View Details</a></button>
+              <button class="details-button"><a href="/recipe/<%= recipe.id %>">View Details</a></button>
             </li>
           <% }); %>
         </ul>

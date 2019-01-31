@@ -2,6 +2,12 @@
   .cards {
     max-width: 45%;
   }
+
+  #hero > h2 {
+    font-size: 32px;
+    padding-top: 22px;
+    padding-bottom: 8px;
+  }
 }
 
 @media (min-width: 960px) {  /* desktop view */
@@ -14,13 +20,13 @@
 
   }
   #hero {
-    padding-top: 138px;
+    padding-top: 110px;
   }
   nav li {
     margin: 13px auto;
     font-size: 22px;
-  
   }
+
   #hero > h2 {
     font-size: 38px;
     padding-top: 30px;
@@ -35,6 +41,5 @@
 
   .cards {
     max-width: 300px;
-
   }
 }

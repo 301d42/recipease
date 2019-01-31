@@ -50,7 +50,6 @@ nav ul {
 #hero h2 {
   text-align: center;
   padding-top: 15px;
-
   font-family: 'Josefin Sans', sans-serif;
   font-size: 22px;
   letter-spacing: -.05em;
@@ -62,6 +61,7 @@ nav ul {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 18px;
   letter-spacing: -.05em;
+  line-height: 1.3;
 }
 
 #hero .search-input, .calorie-search > input {
@@ -75,8 +75,20 @@ nav ul {
   font-family: 'Krub', sans-serif;
 }
 
+.card-bottom {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 .calorie-search > input {
   width: 50px;
+}
+
+#search-container  {
+  width: 450px;
+  max-width: 90%;
+  margin: 12px auto 0;
 }
 
 .search-labels {
@@ -87,10 +99,27 @@ nav ul {
 .search-labels label {
   background-color: white;
   border-radius: 5px;
+  width: 120px;
   padding: 5px;
   font-size: 15px;
   display: inline-block;
   margin: 5px 2.5px 0;
+}
+
+.cards .nutrients {
+  text-align: center;
+  flex: 1;
+  margin-bottom: 25px;
+}
+
+.cards .nutrients span {
+  display: inline-block;
+  min-width: 100px;
+  text-align: left;
+}
+
+.cards .nutrients span:first-child {
+  text-align: right;
 }
 
 aside.right {
