@@ -47,6 +47,7 @@ app.get('/about', aboutPage);
 app.get('/user', userForm);
 app.post('/user', manageUser);
 app.put('/substitutions', getSubstitutions);
+app.delete('/substitutions/:id', deleteSubstitution);
 
 // Catch-all
 app.get('*', (req, res) => res.status(404).send('This route does not exist'));
@@ -194,6 +195,14 @@ function getSubstitutions(req, res) {
       substitution.save();
       return res.redirect(`/recipe/${recipe_id}`);
     });
+}
+
+function deleteSubstitution(req, res) {
+  const substitutionsSQL = 'DELETE FROM substitutions WHERE id=$1;';
+  return client.query(substitutionsSQL, [req.params.id])
+    .then(() => {
+      return res.redirect('/');
+    }).catch(error => handleError(error));
 }
 
 function searchRecipes(req, res) {
