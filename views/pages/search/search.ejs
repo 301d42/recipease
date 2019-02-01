@@ -4,58 +4,51 @@
   <body>
     <%- include('../../layout/header') %>
     <main>
-      <aside class="left">
-        <%- include('../../layout/nav') %>
-      </aside>
+      <%- include('../../layout/nav') %> 
       <section id="hero">
         <h2>Search For Recipes</h2>
-        <form action="/results" method="POST">
-          <input class="search-input" type="text" name="keyword" placeholder="Enter ingredient or recipe name">
-          <fieldset class="search-labels">
-            <h3>Dietary Restrictions</h3>
-            <label>Balanced
-              <input class="checkbox hide" type="checkbox" name="balanced" alt="Protein/Fat/Carb values in 15/35/50 ratio">
-            </label>
-            <label>High-Protein
-              <input class="checkbox hide" type="checkbox" name="high_protein" alt="More than 50% of total calories from proteins">
-            </label>
-            <label>Low-Carb
-              <input class="checkbox hide" type="checkbox" name="low_carb" alt="Less than 20% of total calories from carbs">
-            </label>
-            <label>Low-Fat
-              <input class="checkbox hide" type="checkbox" name="low_fat" alt="Less than 15% of total calories of total calories from fat">
-            </label>
-            <label>Alcohol-Free
-              <input class="checkbox hide" type="checkbox" name="alcohol_free" alt="No alcohol used or contained">
-            </label>                          
-            <label>Vegan
-              <input class="checkbox hide" type="checkbox" name="vegan" alt="Vegan">
-            </label>                          
-            <label>Vegetarian
-              <input class="checkbox hide" type="checkbox" name="vegetarian" alt="Vegetarian">
-            </label>                          
-            <label>Sugar Conscious
-              <input class="checkbox hide" type="checkbox" name="sugar_conscious" alt="Sugar conscious">
-            </label>                          
-            <label>Peanut Free
-              <input class="checkbox hide" type="checkbox" name="peanut_free" alt="Peanut free">
-            </label>                          
-          </fieldset>
-          <fieldset class="calorie-search">
-            <h3>Maximum Calories Per Serving</h3>
-            <input type="number" name="calories" alt="Maximum calories per serving">
-          </fieldset>
-          <button class="search-button" type="submit">Search</button>
-        </form>
+        <section id="search-container">
+          <form action="/results" method="POST">
+            <input class="search-input" type="text" name="keyword" placeholder="Enter ingredient or recipe name">
+            <fieldset class="search-labels">
+              <h3>Dietary Preferences</h3>
+              <label>Balanced
+                <input class="checkbox hide" type="checkbox" name="balanced" alt="Protein/Fat/Carb values in 15/35/50 ratio">
+              </label>
+              <label>High-Protein
+                <input class="checkbox hide" type="checkbox" name="high_protein" alt="More than 50% of total calories from proteins">
+              </label>
+              <label>Low-Carb
+                <input class="checkbox hide" type="checkbox" name="low_carb" alt="Less than 20% of total calories from carbs">
+              </label>
+              <label>Low-Fat
+                <input class="checkbox hide" type="checkbox" name="low_fat" alt="Less than 15% of total calories of total calories from fat">
+              </label>
+              <label>Alcohol-Free
+                <input class="checkbox hide" type="checkbox" name="alcohol_free" alt="No alcohol used or contained">
+              </label>                          
+              <label>Vegan
+                <input class="checkbox hide" type="checkbox" name="vegan" alt="Vegan">
+              </label>                          
+              <label>Vegetarian
+                <input class="checkbox hide" type="checkbox" name="vegetarian" alt="Vegetarian">
+              </label>                          
+              <label>Sugar Conscious
+                <input class="checkbox hide" type="checkbox" name="sugar_conscious" alt="Sugar conscious">
+              </label>                          
+              <label>Peanut Free
+                <input class="checkbox hide" type="checkbox" name="peanut_free" alt="Peanut free">
+              </label>                          
+            </fieldset>
+            <fieldset class="calorie-search">
+              <h3>Maximum Calories Per Serving</h3>
+              <input type="number" name="calories" alt="Maximum calories per serving">
+            </fieldset>
+            <button class="search-button" type="submit">Search</button>
+          </form>
+        </section>
       </section>
-      <aside>
-        <%# include('./layout/ads') %>
-      </aside>
     </main>
-    <footer>
-      <%- include('../../layout/footer') %>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="../scripts/app.js"></script>
+    <%- include('../../layout/footer') %>
   </body>
 </html>

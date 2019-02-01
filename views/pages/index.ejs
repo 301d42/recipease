@@ -4,26 +4,19 @@
   <body>
     <%- include('../layout/header') %>
     <main>
-      <aside class="left">
-        <%- include('../layout/nav') %>
-      </aside>
+      <%- include('../layout/nav') %>   
       <section id="hero">
         <h2>My Recipes</h2>
         <ul>
           <% recipes.forEach(recipe => { %>
             <li class="cards">
               <%- include('../layout/card', {recipe: recipe}) %>
-              <button><a href="/recipe/<%= recipe.id %>">View Details</a></button>
+              <button class="details-button"><a href="/recipe/<%= recipe.id %>">View Details</a></button>
             </li>
           <% }); %>
         </ul>
       </section>
-      <aside>
-        <%# include('./layout/ads') %>
-      </aside>
     </main>
-    <footer>
-      <%- include('../layout/footer') %>
-    </footer>
+    <%- include('../layout/footer') %>
   </body>
 </html>
