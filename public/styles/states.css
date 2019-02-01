@@ -3,12 +3,17 @@
     max-width: 45%;
   }
 
+  main {
+    min-height: 1000px;
+  }
+
   #hero > h2 {
     font-size: 32px;
     padding-top: 22px;
     padding-bottom: 8px;
   }
 }
+
 
 @media (min-width: 960px) {  /* desktop view */
   main {
@@ -45,5 +50,11 @@
 
   .cards {
     max-width: 300px;
+  }
+}
+
+@media (min-height: 1300px) {  /*i Pad Pro view */
+  main {
+    min-height: 1250px;
   }
 }

@@ -83,14 +83,17 @@ nav a {
 }
 
 .cards .labels {
-  font-size: 14px;
   font-weight: bold;
   display: block;
+  text-decoration: underline;
+  margin-bottom: 10px;
+  font-size: 15px;
+  margin: 0 auto;
 }
 
 .cards .ingredients {
   border-top: 1px solid gray;
-  /* border-bottom: 1px solid gray; */
+  border-bottom: 1px solid gray;
   margin: 0 5px 0;
   padding-top: 12px;
   padding-bottom: 12px;
@@ -111,7 +114,7 @@ nav a {
   padding: 0 20px 20px;
 }
 
-.cards .details-button, .cards .save-button, .search-button, .directions {
+.cards .details-button, .cards .save-button, .search-button, .directions, .cards .delete-button {
   margin: 0 10px 10px auto;
   display: block;
   background-color: rgb(161, 150, 147);
@@ -126,8 +129,28 @@ nav a {
   text-decoration: none;
 }
 
+
 .search-button {
   margin: 10px auto;
+}
+
+.delete-button {
+  width: 180px;
+}
+
+.cards .delete-sub {
+  font-size: 12px;
+  background-color: rgb(134, 90, 90);
+  width: 250px;
+  margin: 15px auto;
+}
+
+.cards > .labels {
+  margin: 0 5px;
+  padding-top: 10px;
+  border-top: 1px solid gray;
+  text-align: center;
+  font-size: 15px;
 }
 
 .cards .saved {
