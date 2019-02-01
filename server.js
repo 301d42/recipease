@@ -206,7 +206,7 @@ function deleteSubstitution(req, res) {
 }
 
 function searchRecipes(req, res) {
-  let url = `https://api.edamam.com/search?app_id=${process.env.EDAMAM_APP_ID}&app_key=${process.env.EDAMAM_API_KEY}&q=${req.body.keyword}`;
+  let url = `https://api.edamam.com/search?app_id=${process.env.EDAMAM_APP_ID}&app_key=${process.env.EDAMAM_API_KEY}&q=${req.body.keyword}&to=36`;
 
   if (req.body.balanced === 'on') url += '&diet=balanced';
   if (req.body.high_protein === 'on') url += '&diet=high-protein';

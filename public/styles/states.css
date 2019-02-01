@@ -51,6 +51,11 @@
   .cards {
     max-width: 300px;
   }
+
+  .one-recipe {
+    max-width: 35%;
+    overflow: hidden;
+  }
 }
 
 @media (min-height: 1300px) {  /*i Pad Pro view */
