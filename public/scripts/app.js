@@ -5,6 +5,8 @@ $('.details-button').on('click', function() {
   const button = $(this);
   button.siblings(`.${recipe_name}`).toggleClass('hide');
   button.text(button.text() === 'Hide Details' ? 'Show Details' : 'Hide Details');
+  $(this).parent().siblings('ul').toggleClass('flex-one');
+  $(this).parent().toggleClass('flex-one');
 });
 
 $('.save-button').on('click', function() {
@@ -14,6 +16,6 @@ $('.save-button').on('click', function() {
 
 $('.search-labels > label').on('click', function() {
   $(this).toggleClass('selected');
+  $(this).children('input').prop('checked') === true ? $(this).children('input').prop('checked', false) : $(this).children('input').prop('checked', true);
   return false;
 });
-

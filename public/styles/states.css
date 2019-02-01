@@ -1,58 +1,49 @@
-@media(min-width:600px){  /*i Pad view */
+@media (min-width: 600px) {  /*i Pad view */
   .cards {
-    max-width:45%;
+    max-width: 45%;
+  }
+
+  #hero > h2 {
+    font-size: 32px;
+    padding-top: 22px;
+    padding-bottom: 8px;
   }
 }
 
 @media (min-width: 960px) {  /* desktop view */
-  header h1{
+  main {
+    min-height: 900px;
+  }
+
+  header h1 {
     font-size: 36px;
   }
   
-  body {
-
-  }
-
-  main {
-  }
-
-  header {
-  }
   nav {
     top: 55px;
 
   }
-  #hero{
-    padding-top:138px;
+  #hero {
+    padding-top: 110px;
   }
-  nav li{
-    margin:13px auto;
+  nav li {
+    margin: 13px auto;
     font-size: 22px;
-  
   }
-  #hero > h2{
+
+  #hero > h2 {
     font-size: 38px;
     padding-top: 30px;
     padding-bottom: 15px;
   }
 
-  #hero > ul{
+  #hero > ul {
    display: flex;
    flex-direction: row;
    flex-wrap: wrap;
-
   }
-  .cards{
+
+  .cards {
     max-width: 300px;
-
   }
-
-  aside.right {
-   
-  }
-
-  footer {
- 
-  }
-
 }

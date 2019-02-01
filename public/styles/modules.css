@@ -1,7 +1,8 @@
 nav {
-  display:flex;
+  display: flex;
   justify-content: center;
 }
+
 nav li {
   display: inline-block;
   margin: 7px auto;
@@ -16,8 +17,8 @@ nav a {
   color: white;
   text-decoration: none;
 }
-#hero > ul{
-  display:flex;
+#hero > ul {
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
@@ -27,9 +28,9 @@ nav a {
   border: 1px solid gray;
   border-radius: 15px;
   width: 90%;
-  /* max-width: 310px; */
-  /* margin-bottom: 30px; */
   margin: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .cards h3, .cards h4, .cards h5, .cards .servings, .cards .calories, .cards .diets, .cards .healths {
@@ -45,13 +46,11 @@ nav a {
 }
 
 .cards h3 {
-
   font-size: 20px;
   font-weight: bold;
 }
 
 .cards h4 {
-
   font-size: 14px;
 }
 
@@ -74,10 +73,6 @@ nav a {
 }
 
 .cards .diets-li {
-
-}
-
-.cards .diets-li {
   background-color: white;
   border-radius: 5px;
   padding: 5px;
@@ -95,6 +90,18 @@ nav a {
 
 .cards .ingredients {
   border-top: 1px solid gray;
+  /* border-bottom: 1px solid gray; */
+  margin: 0 5px 0;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.cards .ingredient-li {
+  font-family: 'Krub', sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  list-style-type: disc;
+  margin: 0 10px 0 30px;
 }
 
 .cards p {
@@ -104,9 +111,8 @@ nav a {
   padding: 0 20px 20px;
 }
 
-.cards .details-button, .cards .save-button, .search-button {
-  grid-area: button;
-  margin: 10px 10px 10px auto;
+.cards .details-button, .cards .save-button, .search-button, .directions {
+  margin: 0 10px 10px auto;
   display: block;
   background-color: rgb(161, 150, 147);
   color: white;
@@ -117,6 +123,7 @@ nav a {
   border: 1px solid gray;
   font-weight: 300;
   width: 120px;
+  text-decoration: none;
 }
 
 .search-button {

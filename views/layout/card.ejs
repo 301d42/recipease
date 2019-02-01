@@ -4,14 +4,12 @@
 <h5 class="servings">Servings: <b><%= recipe.servings %></b></h5>
 <h5 class="calories">Calories Per Serving: <b><%= recipe.cal_per_serving %></b></h5>
 
-<ul class="diets">
-  <h5 class="labels">Dietary Rescrictions:</h5>
-<% recipe.diet_labelsArray.forEach( diet_label =>{ %>    
-  <li class="diets-li"><%= diet_label %></li>
-<% }); %>
-<% recipe.health_labelsArray.forEach( health_label =>{ %>    
-  <li class="diets-li"><%= health_label %></li>
-<% }); %>
+<ul class="diets flex-one">
+  <h5 class="labels">Dietary Preferences:</h5>
+  <% recipe.diet_labelsArray.forEach( diet_label =>{ %>    
+    <li class="diets-li"><%= diet_label %></li>
+  <% }); %>
+  <% recipe.health_labelsArray.forEach( health_label =>{ %>    
+    <li class="diets-li"><%= health_label %></li>
+  <% }); %>
 </ul>
-
-

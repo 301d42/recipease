@@ -11,55 +11,54 @@
           <% recipes.forEach(recipe => { %>  
             <li class="cards">
               <%- include('../../layout/card', {recipe: recipe}) %>
+              <section class="card-bottom">
+                <ul class="ingredients hide <%= recipe.identifier %>">
+                  <h5 class="labels">Ingredient List</h5>
+                  <% recipe.ingredientsArray.forEach( ingredient =>{ %>
+                    <li class="ingredient-li"><%= ingredient %></li>
+                  <% }); %>
+                </ul>
 
-              <ul class="ingredients hide <%= recipe.identifier %>">
-                <% recipe.ingredientsArray.forEach( ingredient =>{ %>
-                  <li class="ingredient-li"><%= ingredient %></li>
-                <% }); %>
-              </ul>
-
-              <ul class="nutrients hide <%= recipe.identifier %>">
-                <li>Total Fat: <%= recipe.total_fat %>g</li>
-                <li>Saturated Fat: <%= recipe.saturated_fat %>g</li>
-                <li>Total Carbs: <%= recipe.total_carbohydrate %>g</li>
-                <li>Dietary Fiber: <%= recipe.dietary_fiber %>g</li>
-                <li>Sugars: <%= recipe.sugars %>g</li>
-                <li>Protein: <%= recipe.protein %>g</li>
-                <li>Cholesterol: <%= recipe.cholesterol %>mg</li>
-                <li>Sodium: <%= recipe.sodium %>mg</li>
-                <li>Potassium: <%= recipe.potassium %>mg</li>
-              </ul>
-              <button class="details-button" data-recipe_name="<%= recipe.identifier %>">Show Details</button>
-              <form class="hide <%= recipe.identifier %>" method="post" action="/recipe" id="add-form">
-                <input type="hidden" name="recipe_name" value="<%= recipe.recipe_name %>">
-                <input type="hidden" name="url" value="<%= recipe.url %>">
-                <input type="hidden" name="source" value="<%= recipe.source %>">
-                <input type="hidden" name="image_url" value="<%= recipe.image_url %>">
-                <input type="hidden" name="ingredients" value="<%= recipe.ingredients %>">               
-                
-                <input type="hidden" name="servings" value="<%= recipe.servings %>">
-                <input type="hidden" name="calories" value="<%= recipe.calories %>">
-                <input type="hidden" name="total_fat" value="<%= recipe.total_fat %>">
-                <input type="hidden" name="saturated_fat" value="<%= recipe.saturated_fat %>">
-                <input type="hidden" name="cholesterol" value="<%= recipe.cholesterol %>">
-                <input type="hidden" name="sodium" value="<%= recipe.sodium %>">
-                <input type="hidden" name="total_carbohydrate" value="<%= recipe.total_carbohydrate %>">
-                <input type="hidden" name="dietary_fiber" value="<%= recipe.dietary_fiber %>">
-                <input type="hidden" name="sugars" value="<%= recipe.sugars %>">
-                <input type="hidden" name="protein" value="<%= recipe.protein %>">
-                <input type="hidden" name="potassium" value="<%= recipe.potassium %>">
-                <input type="hidden" name="health_labels" value="<%= recipe.health_labels %>">
-                <input type="hidden" name="diet_labels" value="<%= recipe.diet_labels %>">
-                <button class="save-button" type="submit">Save Recipe</button>
-              </form>
+                <ul class="nutrients hide <%= recipe.identifier %>">
+                  <h5 class="labels">Nutritional Info</h5>
+                  <li><span>Total Fat</span>: <span><%= recipe.total_fat %>g</span></li>
+                  <li><span>Saturated Fat</span>: <span><%= recipe.saturated_fat %>g</span></li>
+                  <li><span>Total Carbs</span>: <span><%= recipe.total_carbohydrate %>g</span></li>
+                  <li><span>Dietary Fiber</span>: <span><%= recipe.dietary_fiber %>g</span></li>
+                  <li><span>Sugars</span>: <span><%= recipe.sugars %>g</span></li>
+                  <li><span>Protein</span>: <span><%= recipe.protein %>g</span></li>
+                  <li><span>Cholesterol</span>: <span><%= recipe.cholesterol %>mg</span></li>
+                  <li><span>Sodium</span>: <span><%= recipe.sodium %>mg</span></li>
+                  <li><span>Potassium</span>: <span><%= recipe.potassium %>mg</span></li>
+                </ul>
+                <button class="details-button" data-recipe_name="<%= recipe.identifier %>">Show Details</button>
+                <form class="hide <%= recipe.identifier %>" method="post" action="/recipe" id="add-form">
+                  <input type="hidden" name="recipe_name" value="<%= recipe.recipe_name %>">
+                  <input type="hidden" name="url" value="<%= recipe.url %>">
+                  <input type="hidden" name="source" value="<%= recipe.source %>">
+                  <input type="hidden" name="image_url" value="<%= recipe.image_url %>">
+                  <input type="hidden" name="ingredients" value="<%= recipe.ingredients %>">               
+                  
+                  <input type="hidden" name="servings" value="<%= recipe.servings %>">
+                  <input type="hidden" name="calories" value="<%= recipe.calories %>">
+                  <input type="hidden" name="total_fat" value="<%= recipe.total_fat %>">
+                  <input type="hidden" name="saturated_fat" value="<%= recipe.saturated_fat %>">
+                  <input type="hidden" name="cholesterol" value="<%= recipe.cholesterol %>">
+                  <input type="hidden" name="sodium" value="<%= recipe.sodium %>">
+                  <input type="hidden" name="total_carbohydrate" value="<%= recipe.total_carbohydrate %>">
+                  <input type="hidden" name="dietary_fiber" value="<%= recipe.dietary_fiber %>">
+                  <input type="hidden" name="sugars" value="<%= recipe.sugars %>">
+                  <input type="hidden" name="protein" value="<%= recipe.protein %>">
+                  <input type="hidden" name="potassium" value="<%= recipe.potassium %>">
+                  <input type="hidden" name="health_labels" value="<%= recipe.health_labels %>">
+                  <input type="hidden" name="diet_labels" value="<%= recipe.diet_labels %>">
+                  <button class="save-button" type="submit">Save Recipe</button>
+                </form>
+                <button class="directions"><a href="<%= recipe.url %>" target="_blank">Directions</a></button>
+              </section>
             </li>
           <% }); %>
         </ul>
-      </section>
-      <aside class="right">
-        <p>Right aside.</p>
-        <%# include('../../layout/ads') %>
-      </aside>
     </main>
     <%- include('../../layout/footer') %>
   </body>
