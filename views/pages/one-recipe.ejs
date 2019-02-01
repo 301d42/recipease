@@ -4,11 +4,9 @@
   <body>
     <%- include('../layout/header') %>
     <main>
-      <aside class="left">
-        <%- include('../layout/nav') %>
-      </aside>
+      <%- include('../layout/nav') %>
       <section id="hero">
-        <h2> Search Results</h2>
+        <h2>Recipe Details</h2>
         <ul>
           <% recipes.forEach(recipe => { %>  
             <li class="cards">
@@ -31,19 +29,57 @@
                 <li>Sodium: <%= recipe.sodium %>mg</li>
                 <li>Potassium: <%= recipe.potassium %>mg</li>
               </ul>
+
+              <h3 class="hide <%= recipe.identifier %>">Substitutions</h3>
+              <% substitutions.forEach((substitute) => { %>
+                <h4 class="hide <%= recipe.identifier %>"><%= (substitute.addition ? 'Add ' : 'Remove ') + substitute.ingredient %></h4>
+                <ul class="nutrients hide <%= recipe.identifier %>">
+                  <li>Calories: <%= substitute.calories %>g</li>
+                  <li>Total Fat: <%= substitute.total_fat %>g</li>
+                  <li>Saturated Fat: <%= substitute.saturated_fat %>g</li>
+                  <li>Total Carbs: <%= substitute.total_carbohydrate %>g</li>
+                  <li>Dietary Fiber: <%= substitute.dietary_fiber %>g</li>
+                  <li>Sugars: <%= substitute.sugars %>g</li>
+                  <li>Protein: <%= substitute.protein %>g</li>
+                  <li>Cholesterol: <%= substitute.cholesterol %>mg</li>
+                  <li>Sodium: <%= substitute.sodium %>mg</li>
+                  <li>Potassium: <%= substitute.potassium %>mg</li>
+                </ul>
+              <% }) %>
+
+              <h3>Adjusted Nutritional Values:</h3>
+
+              <ul class="nutrients hide <%= recipe.identifier %>">
+                  <li>Calories: <%= recipe.calc_calories %>g</li>
+                  <li>Total Fat: <%= recipe.calc_total_fat %>g</li>
+                  <li>Saturated Fat: <%= recipe.calc_saturated_fat %>g</li>
+                  <li>Total Carbs: <%= recipe.calc_total_carbohydrate %>g</li>
+                  <li>Dietary Fiber: <%= recipe.calc_dietary_fiber %>g</li>
+                  <li>Sugars: <%= recipe.calc_sugars %>g</li>
+                  <li>Protein: <%= recipe.calc_protein %>g</li>
+                  <li>Cholesterol: <%= recipe.calc_cholesterol %>mg</li>
+                  <li>Sodium: <%= recipe.calc_sodium %>mg</li>
+                  <li>Potassium: <%= recipe.calc_potassium %>mg</li>
+                </ul>
+
               <button class="details-button" data-recipe_name="<%= recipe.identifier %>">Show Details</button>
+
               <form method="post" action="/recipe/<%= recipe.id %>" class="hide <%= recipe.identifier %>">
                 <input type="hidden" name="_method" value="delete">
-                <button type="submit">Delete</button>
+                <button type="submit" class="delete-button">Delete</button>
+              </form>
+              <form method="post" action="/substitutions" class="hide <%= recipe.identifier %>">
+                <input type="hidden" name="_method" value="put">
+                <input type="hidden" name="recipe_id" value="<%= recipe.id %>">
+                <input type="text" name="query">
+                <input type="radio" name="addition" value="true"> Add
+                <input type="radio" name="addition" value="false"> Remove
+                <button type="submit">Save Substitution</button>
               </form>
             </li>
           <% }); %>
         </ul>
       </section>
-      <aside class="right">
-        <p>Right aside.</p>
-        <%# include('../layout/ads') %>
-      </aside>
     </main>
     <%- include('../layout/footer') %>
   </body>
