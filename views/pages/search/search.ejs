@@ -11,7 +11,7 @@
           <form action="/results" method="POST">
             <input class="search-input" type="text" name="keyword" placeholder="Enter ingredient or recipe name">
             <fieldset class="search-labels">
-              <h3>Dietary Restrictions</h3>
+              <h3>Dietary Preferences</h3>
               <label>Balanced
                 <input class="checkbox hide" type="checkbox" name="balanced" alt="Protein/Fat/Carb values in 15/35/50 ratio">
               </label>
@@ -48,9 +48,6 @@
           </form>
         </section>
       </section>
-      <aside>
-        <%# include('./layout/ads') %>
-      </aside>
     </main>
     <%- include('../../layout/footer') %>
   </body>
