@@ -50,6 +50,7 @@
 
                 <form method="post" action="/substitutions/<%= substitute.id %>">
                   <input type="hidden" name="_method" value="delete">
+                  <input type="hidden" name="recipe_id" value="<%= recipe.id %>">
                   <button type="submit" class="delete-button">Delete Substitution</button>
                 </form>
               <% }) %>

@@ -201,7 +201,7 @@ function deleteSubstitution(req, res) {
   const substitutionsSQL = 'DELETE FROM substitutions WHERE id=$1;';
   return client.query(substitutionsSQL, [req.params.id])
     .then(() => {
-      return res.redirect('/');
+      return res.redirect(`/recipe/${req.body.recipe_id}`);
     }).catch(error => handleError(error));
 }
 
