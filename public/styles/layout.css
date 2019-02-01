@@ -143,12 +143,6 @@ nav ul {
   text-align: right;
 }
 
-.cards .adjusted {
-  border-top: 1px solid gray;
-  padding-top: 10px;
-  margin: 15px 5px;
-}
-
 footer {
   background-color: rgb(161, 150, 147);
   display: flex;
