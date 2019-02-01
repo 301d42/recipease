@@ -61,13 +61,49 @@ function handleError(err, res) {
   res.render('/error', (err));
 }
 
-function formatDataForRender(recipes) {
+function formatDataForRender(recipes, subs = []) {
   return recipes.map((recipe) => {
     recipe.ingredientsArray = recipe.ingredients ? recipe.ingredients.split(';;') : [];
     recipe.health_labelsArray = recipe.health_labels ? recipe.health_labels.split(';;') : [];
     recipe.diet_labelsArray = recipe.diet_labels ? recipe.diet_labels.split(';;') : [];
     recipe.cal_per_serving = Math.round( parseFloat(recipe.calories / recipe.servings) * 1e2 ) / 1e2;
     recipe.identifier = recipe.recipe_name.replace(/ /g, '_');
+
+    const subsTotal = subs.reduce((acc, curr) => {
+      acc.calories += Math.round(Number.parseFloat(curr.calories));
+      acc.total_fat += Math.round(Number.parseFloat(curr.total_fat));
+      acc.saturated_fat += Math.round(Number.parseFloat(curr.saturated_fat));
+      acc.cholesterol += Math.round(Number.parseFloat(curr.cholesterol));
+      acc.sodium += Math.round(Number.parseFloat(curr.sodium));
+      acc.total_carbohydrate += Math.round(Number.parseFloat(curr.total_carbohydrate));
+      acc.dietary_fiber += Math.round(Number.parseFloat(curr.dietary_fiber));
+      acc.sugars += Math.round(Number.parseFloat(curr.sugars));
+      acc.protein += Math.round(Number.parseFloat(curr.protein));
+      acc.potassium += Math.round(Number.parseFloat(curr.potassium));
+      return acc;
+    }, {
+      calories: 0,
+      total_fat: 0,
+      saturated_fat: 0,
+      cholesterol: 0,
+      sodium: 0,
+      total_carbohydrate: 0,
+      dietary_fiber: 0,
+      sugars: 0,
+      protein: 0,
+      potassium: 0
+    });
+
+    recipe.calc_calories = Number.parseFloat(recipe.calories) + subsTotal.calories;
+    recipe.calc_total_fat = Number.parseFloat(recipe.total_fat) + subsTotal.total_fat;
+    recipe.calc_saturated_fat = Number.parseFloat(recipe.saturated_fat) + subsTotal.saturated_fat;
+    recipe.calc_cholesterol = Number.parseFloat(recipe.cholesterol) + subsTotal.cholesterol;
+    recipe.calc_sodium = Number.parseFloat(recipe.sodium) + subsTotal.sodium;
+    recipe.calc_total_carbohydrate = Number.parseFloat(recipe.total_carbohydrate) + subsTotal.total_carbohydrate;
+    recipe.calc_dietary_fiber = Number.parseFloat(recipe.dietary_fiber) + subsTotal.dietary_fiber;
+    recipe.calc_sugars = Number.parseFloat(recipe.sugars) + subsTotal.sugars;
+    recipe.calc_protein = Number.parseFloat(recipe.protein) + subsTotal.protein;
+    recipe.calc_potassium = Number.parseFloat(recipe.potassium) + subsTotal.potassium;
     return recipe;
   });
 }
@@ -125,11 +161,11 @@ function getOneRecipe(req, res) {
   const recipeSQL = 'SELECT * FROM recipes WHERE id=$1;';
   return client.query(recipeSQL, [req.params.id])
     .then((recipeResult) => {
-      recipes = formatDataForRender(recipeResult.rows);
+      recipes = recipeResult.rows;
       const substitutionsSQL = 'SELECT * FROM substitutions WHERE recipe_id=$1;';
       return client.query(substitutionsSQL, [req.params.id])
         .then((substitutions) => {
-          console.log('substitutions: ', substitutions);
+          recipes = formatDataForRender(recipes, substitutions.rows);
           return res.render('pages/one-recipe', {recipes: recipes, substitutions: substitutions.rows});
         }).catch(error => handleError(error));
     }).catch(error => handleError(error));
@@ -149,7 +185,6 @@ function getSubstitutions(req, res) {
     })
     .set('Content-Type', 'application/json')
     .then((result) => {
-      console.log('result: ', result.body.foods[0]);
       const substitution = new Substitution(result.body.foods[0], query, recipe_id, addition);
       substitution.save();
       return res.redirect(`/recipe/${recipe_id}`);
