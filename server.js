@@ -270,7 +270,7 @@ function Recipe(info) {
 
 function Substitution(info, query, recipe_id, addition) {
   this.ingredients = query;
-  this.addition = addition === 'true' ? true : false;
+  this.addition = addition === 'false' ? false : true;
   this.calories = info.nf_calories ? info.nf_calories : 0;
   this.total_fat = info.nf_total_fat ? info.nf_total_fat : 0;
   this.saturated_fat = info.nf_saturated_fat ? info.nf_saturated_fat : 0;
