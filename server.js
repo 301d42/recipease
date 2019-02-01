@@ -132,10 +132,15 @@ function manageUser(req, res) {
 }
 
 function deleteRecipe(req, res) {
-  const SQL = 'DELETE FROM recipes WHERE id=$1;';
-  return client.query(SQL, [req.params.id])
+  const recipe_id = req.params.id;
+  const substitutionsSQL = 'DELETE FROM substitutions WHERE recipe_id=$1;';
+  return client.query(substitutionsSQL, [recipe_id])
     .then(() => {
-      res.redirect('/');
+      const recipeSQL = 'DELETE FROM recipes WHERE id=$1;';
+      return client.query(recipeSQL, [recipe_id])
+    })
+    .then(() => {
+      return res.redirect('/');
     }).catch(error => handleError(error));
 }
 
