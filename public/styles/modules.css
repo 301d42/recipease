@@ -141,6 +141,34 @@ nav a {
   width: fit-content;
 }
 
+.nutritional-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.cards .nutritional-info .original {
+  flex-basis: 70%;
+}
+
+.cards .original li {
+  /* text-align: right; */
+}
+
+.cards .original li:first-child, .cards .adjusted li:first-child {
+  font-weight: bold;
+}
+
+.cards .original li:first-child span {
+  min-width: 0px;
+}
+
+.cards .adjusted {
+  text-align: left;
+  flex-basis: 30%;
+  color: rgb(94, 138, 94);
+}
+
 .search-button {
   margin: 10px auto;
 }
