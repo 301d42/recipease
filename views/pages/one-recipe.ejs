@@ -32,7 +32,6 @@
                 <li><span>Potassium</span>: <span><%= recipe.potassium %>mg</span></li>
               </ul>
 
-              
               <h5 class="labels substitutions">Substitutions</h5>
               
               <form class="sub-form" method="post" action="/substitutions">
@@ -66,6 +65,7 @@
                     <button type="submit" class="delete-button delete-sub">Delete Substitution</button>
                   </form>
                 </section>
+
               <% }) %>
 
               <% if (substitutions.length > 0) { %>
@@ -97,4 +97,3 @@
     </main>
     <%- include('../layout/footer') %>
   </body>
-</html>

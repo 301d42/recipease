@@ -158,6 +158,8 @@ nav a {
 
 .cards .sub-form {
   text-align: center;
+  font-family: 'Josefin Sans', sans-serif;
+  letter-spacing: -.05em;
 }
 
 .cards .sub-card {
