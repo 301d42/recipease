@@ -90,7 +90,10 @@ nav a {
 
 .cards .ingredients {
   border-top: 1px solid gray;
-  margin: 0 5px;
+  /* border-bottom: 1px solid gray; */
+  margin: 0 5px 0;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 .cards .ingredient-li {
@@ -98,7 +101,7 @@ nav a {
   font-size: 14px;
   line-height: 1.4;
   list-style-type: disc;
-  margin: 12px 10px 10px 30px;
+  margin: 0 10px 0 30px;
 }
 
 .cards p {

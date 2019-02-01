@@ -110,9 +110,23 @@ nav ul {
 }
 
 .cards .nutrients {
+  font-family: 'Krub', sans-serif;
   text-align: center;
   flex: 1;
+  margin-bottom: 10px;
   margin-bottom: 25px;
+  line-height: 1.2;
+  font-size: 14px;
+}
+
+.cards .ingredients .labels {
+  text-align: center;
+}
+
+.cards .nutrients .labels, .cards .ingredients .labels {
+  text-decoration: underline;
+  margin-bottom: 10px;
+  font-size: 15px;
 }
 
 .cards .nutrients span {
@@ -125,12 +139,24 @@ nav ul {
   text-align: right;
 }
 
-aside.right {
-  background-color: rgb(103, 78, 78);
+footer {
+  background-color: rgb(161, 150, 147);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
 }
 
-footer {
-  background-color: blue;
+footer section img {
+  margin: 20px 20px 0;
+}
+
+#nutritionix-badge {
+  height: 40px;
+  border-radius: 5px;
+  background-color: white; 
+  margin-bottom: 20px;
 }
 
 .hide {

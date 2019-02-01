@@ -13,12 +13,14 @@
               <%- include('../../layout/card', {recipe: recipe}) %>
               <section class="card-bottom">
                 <ul class="ingredients hide <%= recipe.identifier %>">
+                  <h5 class="labels">Ingredient List</h5>
                   <% recipe.ingredientsArray.forEach( ingredient =>{ %>
                     <li class="ingredient-li"><%= ingredient %></li>
                   <% }); %>
                 </ul>
 
                 <ul class="nutrients hide <%= recipe.identifier %>">
+                  <h5 class="labels">Nutritional Info</h5>
                   <li><span>Total Fat</span>: <span><%= recipe.total_fat %>g</span></li>
                   <li><span>Saturated Fat</span>: <span><%= recipe.saturated_fat %>g</span></li>
                   <li><span>Total Carbs</span>: <span><%= recipe.total_carbohydrate %>g</span></li>

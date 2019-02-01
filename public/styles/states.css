@@ -11,6 +11,10 @@
 }
 
 @media (min-width: 960px) {  /* desktop view */
+  main {
+    min-height: 900px;
+  }
+
   header h1 {
     font-size: 36px;
   }
