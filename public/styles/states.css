@@ -23,6 +23,16 @@
   header h1 {
     font-size: 36px;
   }
+
+  header h4 {
+    font-size: 22px;
+  }
+
+  #allie-photo {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+  }
   
   nav {
     top: 55px;

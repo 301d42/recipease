@@ -1,7 +1,3 @@
-nav {
-  display: flex;
-  justify-content: center;
-}
 
 nav li {
   display: inline-block;
@@ -114,6 +110,8 @@ nav a {
   font-family: 'Krub', sans-serif;
   font-size: 14px;
   padding: 0 20px 20px;
+  line-height: 1.2;
+  text-align: left;
 }
 
 .cards .details-button, .cards .save-button, .search-button, .directions, .cards .delete-button, .cards .save-sub {
@@ -148,11 +146,7 @@ nav a {
 }
 
 .cards .nutritional-info .original {
-  flex-basis: 70%;
-}
-
-.cards .original li {
-  /* text-align: right; */
+  flex-basis: 75%;
 }
 
 .cards .original li:first-child, .cards .adjusted li:first-child {
@@ -163,9 +157,16 @@ nav a {
   min-width: 0px;
 }
 
+#allie-photo {
+  width: 25px;
+  height: 25px;
+  border-radius: 12.5px;
+  margin: auto 0;
+}
+
 .cards .adjusted {
   text-align: left;
-  flex-basis: 30%;
+  flex-basis: 25%;
   color: rgb(94, 138, 94);
 }
 
@@ -197,7 +198,6 @@ nav a {
   border: 1px solid rgb(189, 189, 189);
   border-radius: 15px;
   box-shadow: 4px 4px 10px rgb(146, 143, 138);
-
 }
 
 .cards .sub-form #add-remove {
