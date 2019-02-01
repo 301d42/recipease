@@ -1,2 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Krub|Rochester|Josefin+Sans|NTR');
 
+body {
+  height: 100%;
+  background-color: rgb(236, 223, 208);
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+}
