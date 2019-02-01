@@ -67,7 +67,7 @@ function formatDataForRender(recipes, subs = []) {
     recipe.ingredientsArray = recipe.ingredients ? recipe.ingredients.split(';;') : [];
     recipe.health_labelsArray = recipe.health_labels ? recipe.health_labels.split(';;') : [];
     recipe.diet_labelsArray = recipe.diet_labels ? recipe.diet_labels.split(';;') : [];
-    recipe.cal_per_serving = Math.round( parseFloat(recipe.calories / recipe.servings) * 1e2 ) / 1e2;
+    recipe.cal_per_serving = Math.round( parseFloat(recipe.calories / recipe.servings) );
     recipe.identifier = recipe.recipe_name.replace(/ /g, '_');
 
     const subsTotal = subs.reduce((acc, curr) => {
@@ -95,16 +95,16 @@ function formatDataForRender(recipes, subs = []) {
       potassium: 0
     });
 
-    recipe.calc_calories = Number.parseFloat(recipe.calories) + subsTotal.calories;
-    recipe.calc_total_fat = Number.parseFloat(recipe.total_fat) + subsTotal.total_fat;
-    recipe.calc_saturated_fat = Number.parseFloat(recipe.saturated_fat) + subsTotal.saturated_fat;
-    recipe.calc_cholesterol = Number.parseFloat(recipe.cholesterol) + subsTotal.cholesterol;
-    recipe.calc_sodium = Number.parseFloat(recipe.sodium) + subsTotal.sodium;
-    recipe.calc_total_carbohydrate = Number.parseFloat(recipe.total_carbohydrate) + subsTotal.total_carbohydrate;
-    recipe.calc_dietary_fiber = Number.parseFloat(recipe.dietary_fiber) + subsTotal.dietary_fiber;
-    recipe.calc_sugars = Number.parseFloat(recipe.sugars) + subsTotal.sugars;
-    recipe.calc_protein = Number.parseFloat(recipe.protein) + subsTotal.protein;
-    recipe.calc_potassium = Number.parseFloat(recipe.potassium) + subsTotal.potassium;
+    recipe.calc_calories = Math.round(Number.parseFloat(recipe.calories) + subsTotal.calories);
+    recipe.calc_total_fat = Math.round(Number.parseFloat(recipe.total_fat) + subsTotal.total_fat);
+    recipe.calc_saturated_fat = Math.round(Number.parseFloat(recipe.saturated_fat) + subsTotal.saturated_fat);
+    recipe.calc_cholesterol = Math.round(Number.parseFloat(recipe.cholesterol) + subsTotal.cholesterol);
+    recipe.calc_sodium = Math.round(Number.parseFloat(recipe.sodium) + subsTotal.sodium);
+    recipe.calc_total_carbohydrate = Math.round(Number.parseFloat(recipe.total_carbohydrate) + subsTotal.total_carbohydrate);
+    recipe.calc_dietary_fiber = Math.round(Number.parseFloat(recipe.dietary_fiber) + subsTotal.dietary_fiber);
+    recipe.calc_sugars = Math.round(Number.parseFloat(recipe.sugars) + subsTotal.sugars);
+    recipe.calc_protein = Math.round(Number.parseFloat(recipe.protein) + subsTotal.protein);
+    recipe.calc_potassium = Math.round(Number.parseFloat(recipe.potassium) + subsTotal.potassium);
     return recipe;
   });
 }
@@ -206,7 +206,7 @@ function deleteSubstitution(req, res) {
 }
 
 function searchRecipes(req, res) {
-  let url = `https://api.edamam.com/search?app_id=${process.env.EDAMAM_APP_ID}&app_key=${process.env.EDAMAM_API_KEY}&q=${req.body.keyword}`;
+  let url = `https://api.edamam.com/search?app_id=${process.env.EDAMAM_APP_ID}&app_key=${process.env.EDAMAM_API_KEY}&q=${req.body.keyword}&to=36`;
 
   if (req.body.balanced === 'on') url += '&diet=balanced';
   if (req.body.high_protein === 'on') url += '&diet=high-protein';
@@ -253,34 +253,34 @@ function Recipe(info) {
   this.image_url = info.image;
   this.ingredients = info.ingredientLines ? info.ingredientLines.join(';;') : '';
   this.servings = info.yield;
-  this.calories = info.totalNutrients.ENERC_KCAL ? Math.round( parseFloat(info.totalNutrients.ENERC_KCAL.quantity) * 1e2 ) / 1e2 : 0;
-  this.total_fat = info.totalNutrients.FAT ? Math.round( parseFloat(info.totalNutrients.FAT.quantity) * 1e2 ) / 1e2 : 0;
-  this.saturated_fat = info.totalNutrients.FASAT ? Math.round( parseFloat(info.totalNutrients.FASAT.quantity) * 1e2 ) / 1e2 : 0;
+  this.calories = info.totalNutrients.ENERC_KCAL ? Math.round( parseFloat(info.totalNutrients.ENERC_KCAL.quantity) ) : 0;
+  this.total_fat = info.totalNutrients.FAT ? Math.round( parseFloat(info.totalNutrients.FAT.quantity) ) : 0;
+  this.saturated_fat = info.totalNutrients.FASAT ? Math.round( parseFloat(info.totalNutrients.FASAT.quantity) ) : 0;
   this.cholesterol =
-    info.totalNutrients.CHOLE ? Math.round( parseFloat(info.totalNutrients.CHOLE.quantity) * 1e2 ) / 1e2 : 0;
-  this.sodium = info.totalNutrients.NA ? (Math.round( parseFloat(info.totalNutrients.NA.quantity) * 1e2 ) / 1e2) : 0;
-  this.total_carbohydrate = info.totalNutrients.CHOCDF ? (Math.round( parseFloat(info.totalNutrients.CHOCDF.quantity) * 1e2 ) / 1e2) : 0;
-  this.dietary_fiber = info.totalNutrients.FIBTG ? (Math.round( parseFloat(info.totalNutrients.FIBTG.quantity) * 1e2 ) / 1e2) : 0;
-  this.sugars = info.totalNutrients.SUGAR ? (Math.round( parseFloat(info.totalNutrients.SUGAR.quantity) * 1e2 ) / 1e2) : 0;
-  this.protein = info.totalNutrients.PROCNT ? (Math.round( parseFloat(info.totalNutrients.PROCNT.quantity) * 1e2 ) / 1e2) : 0;
-  this.potassium = info.totalNutrients.K ? (Math.round( parseFloat(info.totalNutrients.K.quantity) * 1e2 ) / 1e2) : 0;
+    info.totalNutrients.CHOLE ? Math.round( parseFloat(info.totalNutrients.CHOLE.quantity) ) : 0;
+  this.sodium = info.totalNutrients.NA ? Math.round( parseFloat(info.totalNutrients.NA.quantity) ) : 0;
+  this.total_carbohydrate = info.totalNutrients.CHOCDF ? Math.round( parseFloat(info.totalNutrients.CHOCDF.quantity) ) : 0;
+  this.dietary_fiber = info.totalNutrients.FIBTG ? Math.round( parseFloat(info.totalNutrients.FIBTG.quantity) ) : 0;
+  this.sugars = info.totalNutrients.SUGAR ? Math.round( parseFloat(info.totalNutrients.SUGAR.quantity) ) : 0;
+  this.protein = info.totalNutrients.PROCNT ? Math.round( parseFloat(info.totalNutrients.PROCNT.quantity) ) : 0;
+  this.potassium = info.totalNutrients.K ? Math.round( parseFloat(info.totalNutrients.K.quantity) ) : 0;
   this.health_labels = info.healthLabels ? info.healthLabels.join(';;') : '';
   this.diet_labels = info.dietLabels ? info.dietLabels.join(';;') : '';
 }
 
 function Substitution(info, query, recipe_id, addition) {
   this.ingredients = query;
-  this.addition = addition === 'true' ? true : false;
-  this.calories = info.nf_calories ? info.nf_calories : 0;
-  this.total_fat = info.nf_total_fat ? info.nf_total_fat : 0;
-  this.saturated_fat = info.nf_saturated_fat ? info.nf_saturated_fat : 0;
-  this.cholesterol = info.nf_cholesterol ? info.nf_cholesterol : 0;
-  this.sodium = info.nf_sodium ? info.nf_sodium : 0;
-  this.total_carbohydrate = info.nf_total_carbohydrate ? info.nf_total_carbohydrate : 0;
-  this.dietary_fiber = info.nf_dietary_fiber ? info.nf_dietary_fiber : 0;
-  this.sugars = info.nf_sugars ? info.nf_sugars : 0;
-  this.protein = info.nf_protein ? info.nf_protein : 0;
-  this.potassium = info.nf_potassium ? info.nf_potassium : 0;
+  this.addition = addition === 'false' ? false : true;
+  this.calories = info.nf_calories ? Math.round(parseFloat(info.nf_calories)) : 0;
+  this.total_fat = info.nf_total_fat ? Math.round(parseFloat(info.nf_total_fat)) : 0;
+  this.saturated_fat = info.nf_saturated_fat ? Math.round(parseFloat(info.nf_saturated_fat)) : 0;
+  this.cholesterol = info.nf_cholesterol ? Math.round(parseFloat(info.nf_cholesterol)) : 0;
+  this.sodium = info.nf_sodium ? Math.round(parseFloat(info.nf_sodium)) : 0;
+  this.total_carbohydrate = info.nf_total_carbohydrate ? Math.round(parseFloat(info.nf_total_carbohydrate)) : 0;
+  this.dietary_fiber = info.nf_dietary_fiber ? Math.round(parseFloat(info.nf_dietary_fiber)) : 0;
+  this.sugars = info.nf_sugars ? Math.round(parseFloat(info.nf_sugars)) : 0;
+  this.protein = info.nf_protein ? Math.round(parseFloat(info.nf_protein)) : 0;
+  this.potassium = info.nf_potassium ? Math.round(parseFloat(info.nf_potassium)) : 0;
   this.recipe_id = recipe_id;
   if (!this.addition) {
     this.calories = this.calories * -1;
