@@ -12,13 +12,13 @@
             <li class="cards">
               <%- include('../layout/card', {recipe: recipe}) %>
 
-              <ul class="ingredients hide <%= recipe.identifier %>">
+              <ul class="ingredients">
                 <% recipe.ingredientsArray.forEach( ingredient =>{ %>
                   <li class="ingredient-li"><%= ingredient %></li>
                 <% }); %>
               </ul>
 
-              <ul class="nutrients hide <%= recipe.identifier %>">
+              <ul class="nutrients">
                 <li>Total Fat: <%= recipe.total_fat %>g</li>
                 <li>Saturated Fat: <%= recipe.saturated_fat %>g</li>
                 <li>Total Carbs: <%= recipe.total_carbohydrate %>g</li>
@@ -30,10 +30,12 @@
                 <li>Potassium: <%= recipe.potassium %>mg</li>
               </ul>
 
-              <h3 class="hide <%= recipe.identifier %>">Substitutions</h3>
+              <% if (substitutions.length > 0) { %>
+                    <h3>Substitutions</h3>
+              <% } %>
               <% substitutions.forEach((substitute) => { %>
-                <h4 class="hide <%= recipe.identifier %>"><%= (substitute.addition ? 'Add ' : 'Remove ') + substitute.ingredient %></h4>
-                <ul class="nutrients hide <%= recipe.identifier %>">
+                <h4><%= (substitute.addition ? 'Add ' : 'Remove ') + substitute.ingredient %></h4>
+                <ul>
                   <li>Calories: <%= substitute.calories %>g</li>
                   <li>Total Fat: <%= substitute.total_fat %>g</li>
                   <li>Saturated Fat: <%= substitute.saturated_fat %>g</li>
@@ -45,30 +47,36 @@
                   <li>Sodium: <%= substitute.sodium %>mg</li>
                   <li>Potassium: <%= substitute.potassium %>mg</li>
                 </ul>
+
+                <form method="post" action="/substitutions/<%= substitute.id %>">
+                  <input type="hidden" name="_method" value="delete">
+                  <button type="submit" class="delete-button">Delete Substitution</button>
+                </form>
               <% }) %>
 
-              <h3>Adjusted Nutritional Values:</h3>
+              <% if (substitutions.length > 0) { %>
+                    <h3>Adjusted Nutritional Values:</h3>
 
-              <ul class="nutrients hide <%= recipe.identifier %>">
-                  <li>Calories: <%= recipe.calc_calories %>g</li>
-                  <li>Total Fat: <%= recipe.calc_total_fat %>g</li>
-                  <li>Saturated Fat: <%= recipe.calc_saturated_fat %>g</li>
-                  <li>Total Carbs: <%= recipe.calc_total_carbohydrate %>g</li>
-                  <li>Dietary Fiber: <%= recipe.calc_dietary_fiber %>g</li>
-                  <li>Sugars: <%= recipe.calc_sugars %>g</li>
-                  <li>Protein: <%= recipe.calc_protein %>g</li>
-                  <li>Cholesterol: <%= recipe.calc_cholesterol %>mg</li>
-                  <li>Sodium: <%= recipe.calc_sodium %>mg</li>
-                  <li>Potassium: <%= recipe.calc_potassium %>mg</li>
-                </ul>
+                    <ul class="nutrients">
+                      <li>Calories: <%= recipe.calc_calories %>g</li>
+                      <li>Total Fat: <%= recipe.calc_total_fat %>g</li>
+                      <li>Saturated Fat: <%= recipe.calc_saturated_fat %>g</li>
+                      <li>Total Carbs: <%= recipe.calc_total_carbohydrate %>g</li>
+                      <li>Dietary Fiber: <%= recipe.calc_dietary_fiber %>g</li>
+                      <li>Sugars: <%= recipe.calc_sugars %>g</li>
+                      <li>Protein: <%= recipe.calc_protein %>g</li>
+                      <li>Cholesterol: <%= recipe.calc_cholesterol %>mg</li>
+                      <li>Sodium: <%= recipe.calc_sodium %>mg</li>
+                      <li>Potassium: <%= recipe.calc_potassium %>mg</li>
+                    </ul>
+              <% } %>
 
-              <button class="details-button" data-recipe_name="<%= recipe.identifier %>">Show Details</button>
-
-              <form method="post" action="/recipe/<%= recipe.id %>" class="hide <%= recipe.identifier %>">
+              <form method="post" action="/recipe/<%= recipe.id %>">
                 <input type="hidden" name="_method" value="delete">
                 <button type="submit" class="delete-button">Delete</button>
               </form>
-              <form method="post" action="/substitutions" class="hide <%= recipe.identifier %>">
+
+              <form method="post" action="/substitutions">
                 <input type="hidden" name="_method" value="put">
                 <input type="hidden" name="recipe_id" value="<%= recipe.id %>">
                 <input type="text" name="query">
