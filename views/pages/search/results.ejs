@@ -31,7 +31,7 @@
                   <li><span>Sodium</span>: <span><%= recipe.sodium %>mg</span></li>
                   <li><span>Potassium</span>: <span><%= recipe.potassium %>mg</span></li>
                 </ul>
-                <button class="details-button" data-recipe_name="<%= recipe.identifier %>">Show Details</button>
+                <button class="details-button" data-recipe_name="<%= recipe.identifier %>">Details</button>
                 <form class="hide <%= recipe.identifier %>" method="post" action="/recipe" id="add-form">
                   <input type="hidden" name="recipe_name" value="<%= recipe.recipe_name %>">
                   <input type="hidden" name="url" value="<%= recipe.url %>">

@@ -241,7 +241,7 @@ function saveRecipe(req, res) {
 
   return client.query(SQL, values)
     .then((results) => {
-      return res.redirect(`/recipe/${results.rows[0].id}`);
+      if (!req.body.ajax) return res.redirect(`/recipe/${results.rows[0].id}`);
     }).catch(error => handleError(error));
 }
 
