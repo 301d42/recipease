@@ -44,5 +44,5 @@ CREATE TABLE substitutions (
 	protein INTEGER,
 	potassium INTEGER,
   recipe_id INTEGER NOT NULL,
-  FOREIGN KEY (recipe_id) REFERENCES recipes(id)
+  FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
 );

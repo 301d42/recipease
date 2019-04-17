@@ -25,7 +25,7 @@ client.on('error', err => console.error(err));
 app.set('view engine', 'ejs');
 app.use(express.static('./public'));
 
-//Middleware for Update and Delete
+// Middleware for Update and Delete
 app.use(
   methodOverride(req => {
     if (req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -52,7 +52,6 @@ app.delete('/substitutions/:id', deleteSubstitution);
 // Catch-all
 app.get('*', (req, res) => res.status(404).send('This route does not exist'));
 
-
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 // --- Helper Functions --- //
@@ -60,53 +59,6 @@ app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 function handleError(err, res) {
   console.error(err);
   res.render('/error', (err));
-}
-
-function formatDataForRender(recipes, subs = []) {
-  return recipes.map((recipe) => {
-    recipe.ingredientsArray = recipe.ingredients ? recipe.ingredients.split(';;') : [];
-    recipe.health_labelsArray = recipe.health_labels ? recipe.health_labels.split(';;') : [];
-    recipe.diet_labelsArray = recipe.diet_labels ? recipe.diet_labels.split(';;') : [];
-    recipe.cal_per_serving = Math.round(recipe.calories / recipe.servings);
-    recipe.identifier = recipe.recipe_name.replace(/[^a-zA-Z0-9]/g, '_');
-
-    const subsTotal = subs.reduce((acc, curr) => {
-      acc.calories += curr.calories;
-      acc.total_fat += curr.total_fat;
-      acc.saturated_fat += curr.saturated_fat;
-      acc.cholesterol += curr.cholesterol;
-      acc.sodium += curr.sodium;
-      acc.total_carbohydrate += curr.total_carbohydrate;
-      acc.dietary_fiber += curr.dietary_fiber;
-      acc.sugars += curr.sugars;
-      acc.protein += curr.protein;
-      acc.potassium += curr.potassium;
-      return acc;
-    }, {
-      calories: 0,
-      total_fat: 0,
-      saturated_fat: 0,
-      cholesterol: 0,
-      sodium: 0,
-      total_carbohydrate: 0,
-      dietary_fiber: 0,
-      sugars: 0,
-      protein: 0,
-      potassium: 0
-    });
-
-    recipe.calc_calories = recipe.calories + subsTotal.calories;
-    recipe.calc_total_fat = recipe.total_fat + subsTotal.total_fat;
-    recipe.calc_saturated_fat = recipe.saturated_fat + subsTotal.saturated_fat;
-    recipe.calc_cholesterol = recipe.cholesterol + subsTotal.cholesterol;
-    recipe.calc_sodium = recipe.sodium + subsTotal.sodium;
-    recipe.calc_total_carbohydrate = recipe.total_carbohydrate + subsTotal.total_carbohydrate;
-    recipe.calc_dietary_fiber = recipe.dietary_fiber + subsTotal.dietary_fiber;
-    recipe.calc_sugars = recipe.sugars + subsTotal.sugars;
-    recipe.calc_protein = recipe.protein + subsTotal.protein;
-    recipe.calc_potassium = recipe.potassium + subsTotal.potassium;
-    return recipe;
-  });
 }
 
 // --- Route Handlers --- //
@@ -134,13 +86,8 @@ function manageUser(req, res) {
 }
 
 function deleteRecipe(req, res) {
-  const recipe_id = req.params.id;
-  const substitutionsSQL = 'DELETE FROM substitutions WHERE recipe_id=$1;';
-  return client.query(substitutionsSQL, [recipe_id])
-    .then(() => {
-      const recipeSQL = 'DELETE FROM recipes WHERE id=$1;';
-      return client.query(recipeSQL, [recipe_id])
-    })
+  const SQL = 'DELETE FROM recipes WHERE id=$1;';
+  return client.query(SQL, [req.params.id])
     .then(() => {
       return res.redirect('/');
     }).catch(error => handleError(error));
@@ -232,17 +179,142 @@ function searchRecipes(req, res) {
     }).catch(error => handleError(error));
 }
 
+
+function formatDataForRender(recipes, subs = []) {
+  return recipes.map((recipe) => {
+    recipe.ingredientsArray = recipe.ingredients ? recipe.ingredients.split(';;') : [];
+    recipe.health_labelsArray = recipe.health_labels ? recipe.health_labels.split(';;') : [];
+    recipe.diet_labelsArray = recipe.diet_labels ? recipe.diet_labels.split(';;') : [];
+    recipe.cal_per_serving = Math.round(recipe.calories / recipe.servings);
+    recipe.identifier = recipe.recipe_name.replace(/[^a-zA-Z0-9]/g, '_');
+
+    const subsTotal = subs.reduce((acc, curr) => {
+      acc.calories += curr.calories;
+      acc.total_fat += curr.total_fat;
+      acc.saturated_fat += curr.saturated_fat;
+      acc.cholesterol += curr.cholesterol;
+      acc.sodium += curr.sodium;
+      acc.total_carbohydrate += curr.total_carbohydrate;
+      acc.dietary_fiber += curr.dietary_fiber;
+      acc.sugars += curr.sugars;
+      acc.protein += curr.protein;
+      acc.potassium += curr.potassium;
+      return acc;
+    }, {
+      calories: 0,
+      total_fat: 0,
+      saturated_fat: 0,
+      cholesterol: 0,
+      sodium: 0,
+      total_carbohydrate: 0,
+      dietary_fiber: 0,
+      sugars: 0,
+      protein: 0,
+      potassium: 0
+    });
+
+    recipe.calc_calories = recipe.calories + subsTotal.calories;
+    recipe.calc_total_fat = recipe.total_fat + subsTotal.total_fat;
+    recipe.calc_saturated_fat = recipe.saturated_fat + subsTotal.saturated_fat;
+    recipe.calc_cholesterol = recipe.cholesterol + subsTotal.cholesterol;
+    recipe.calc_sodium = recipe.sodium + subsTotal.sodium;
+    recipe.calc_total_carbohydrate = recipe.total_carbohydrate + subsTotal.total_carbohydrate;
+    recipe.calc_dietary_fiber = recipe.dietary_fiber + subsTotal.dietary_fiber;
+    recipe.calc_sugars = recipe.sugars + subsTotal.sugars;
+    recipe.calc_protein = recipe.protein + subsTotal.protein;
+    recipe.calc_potassium = recipe.potassium + subsTotal.potassium;
+    return recipe;
+  });
+}
+
 function saveRecipe(req, res) {
-  let SQL = 'INSERT INTO recipes (recipe_name, url, source, image_url, ingredients, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium, health_labels, diet_labels) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18) RETURNING id;';
+  let SQL = `INSERT INTO recipes (
+    recipe_name, 
+    url, 
+    source, 
+    image_url, 
+    ingredients, 
+    servings, 
+    calories, 
+    total_fat, 
+    saturated_fat, 
+    cholesterol, 
+    sodium, 
+    total_carbohydrate, 
+    dietary_fiber, 
+    sugars, 
+    protein, 
+    potassium, 
+    health_labels, 
+    diet_labels
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18) RETURNING id;`;
 
-  let {recipe_name, url, source, image_url, ingredients, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium, health_labels, diet_labels} = req.body;
+  let {
+    recipe_name,
+    url,
+    source,
+    image_url,
+    ingredients,
+    servings,
+    calories,
+    total_fat,
+    saturated_fat,
+    cholesterol,
+    sodium,
+    total_carbohydrate,
+    dietary_fiber,
+    sugars,
+    protein,
+    potassium,
+    health_labels,
+    diet_labels
+  } = req.body;
 
-  let values = [recipe_name, url, source, image_url, ingredients, servings, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, sugars, protein, potassium, health_labels, diet_labels];
-
+  let values = [
+    recipe_name,
+    url,
+    source,
+    image_url,
+    ingredients,
+    servings,
+    calories,
+    total_fat,
+    saturated_fat,
+    cholesterol,
+    sodium,
+    total_carbohydrate,
+    dietary_fiber,
+    sugars,
+    protein,
+    potassium,
+    health_labels,
+    diet_labels
+  ];
   return client.query(SQL, values)
     .then((results) => {
       return res.redirect(`/recipe/${results.rows[0].id}`);
     }).catch(error => handleError(error));
+}
+
+Substitution.prototype.save = function() {
+  const SQL = `INSERT INTO substitutions (
+    ingredient, 
+    addition, 
+    calories, 
+    total_fat, 
+    saturated_fat, 
+    cholesterol, 
+    sodium, 
+    total_carbohydrate, 
+    dietary_fiber, 
+    sugars, 
+    protein, 
+    potassium, 
+    recipe_id
+  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`;
+
+  const values = Object.values(this);
+  client.query(SQL, values);
 }
 
 // Constructors
@@ -295,25 +367,4 @@ function Substitution(info, query, recipe_id, addition) {
     this.protein = this.protein * -1;
     this.potassium = this.potassium * -1;
   }
-}
-
-Substitution.prototype.save = function() {
-  const SQL = `INSERT INTO substitutions (
-    ingredient, 
-    addition, 
-    calories, 
-    total_fat, 
-    saturated_fat, 
-    cholesterol, 
-    sodium, 
-    total_carbohydrate, 
-    dietary_fiber, 
-    sugars, 
-    protein, 
-    potassium, 
-    recipe_id
-  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`;
-
-  const values = Object.values(this);
-  client.query(SQL, values);
 }
