@@ -157,6 +157,36 @@ nav a {
   min-width: 0px;
 }
 
+.cards .nutrition-details {
+  text-align: left;
+  margin: 10px auto;
+}
+
+.cards .nutrition-details tr td {
+  padding: 2px 10px;
+}
+
+.cards .nutrition-details tr:nth-child(even) td {
+  background-color: white;
+}
+
+.cards .nutrition-details tr:nth-child(odd) td {
+  background-color: #FCF2F2;
+}
+
+.cards .nutrition-details.original tr td:nth-child(3) {
+  display: none;
+}
+
+.cards .nutrition-details.original tr:nth-child(1) {
+  display: none;
+}
+
+.cards .nutrition-details tr:nth-child(1) td {
+  font-weight: bold;
+  font-size: .8em;
+}
+
 #allie-photo {
   width: 25px;
   height: 25px;

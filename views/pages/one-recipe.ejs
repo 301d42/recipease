@@ -21,39 +21,63 @@
 
               <h5 class="labels">Nutritional Info</h5>
 
-              <section class="nutritional-info">
-                <ul class="nutrients <%= (substitutions.length > 0) ? 'original' : '' %>">
-                  <% if (substitutions.length > 0) { %>
-                    <li><span></span>Original<span></span></li>
-                  <% } %>
-                  <li><span>Total Calories</span>: <span><%= recipe.calories %></span></li>
-                  <li><span>Total Fat</span>: <span><%= recipe.total_fat %>g</span></li>
-                  <li><span>Saturated Fat</span>: <span><%= recipe.saturated_fat %>g</span></li>
-                  <li><span>Total Carbs</span>: <span><%= recipe.total_carbohydrate %>g</span></li>
-                  <li><span>Dietary Fiber</span>: <span><%= recipe.dietary_fiber %>g</span></li>
-                  <li><span>Sugars</span>: <span><%= recipe.sugars %>g</span></li>
-                  <li><span>Protein</span>: <span><%= recipe.protein %>g</span></li>
-                  <li><span>Cholesterol</span>: <span><%= recipe.cholesterol %>mg</span></li>
-                  <li><span>Sodium</span>: <span><%= recipe.sodium %>mg</span></li>
-                  <li><span>Potassium</span>: <span><%= recipe.potassium %>mg</span></li>
-                </ul>
-
-                <% if (substitutions.length > 0) { %>
-                  <ul class="nutrients adjusted">
-                    <li>Adjusted</li>
-                    <li><%= recipe.calc_calories %></li>
-                    <li><%= recipe.calc_total_fat %>g</li>
-                    <li><%= recipe.calc_saturated_fat %>g</li>
-                    <li><%= recipe.calc_total_carbohydrate %>g</li>
-                    <li><%= recipe.calc_dietary_fiber %>g</li>
-                    <li><%= recipe.calc_sugars %>g</li>
-                    <li><%= recipe.calc_protein %>g</li>
-                    <li><%= recipe.calc_cholesterol %>mg</li>
-                    <li><%= recipe.calc_sodium %>mg</li>
-                    <li><%= recipe.calc_potassium %>mg</li>
-                  </ul>
-                <% } %>
-              </section>
+              <table class="nutrients nutrition-details <%= (substitutions.length > 0) ? 'adjust' : 'original' %>">
+                <tr>
+                  <td></td>
+                  <td>original</td>
+                  <td>adjusted</td>
+                </tr>
+                <tr>
+                  <td>Total Calories</td>
+                  <td><%= recipe.calories %></td>
+                  <td><%= recipe.calc_calories %></td>
+                </tr>
+                <tr>
+                  <td>Total Fat</td>
+                  <td><%= recipe.total_fat %>g</td>
+                  <td><%= recipe.calc_total_fat %>g</td>
+                </tr>
+                <tr>
+                  <td>Saturated Fat</td>
+                  <td><%= recipe.saturated_fat %>g</td>
+                  <td><%= recipe.calc_saturated_fat %>g</td>
+                </tr>
+                <tr>
+                  <td>Total Carbs</td>
+                  <td><%= recipe.total_carbohydrate %>g</td>
+                  <td><%= recipe.calc_total_carbohydrate %>g</td>
+                </tr>
+                <tr>
+                  <td>Dietary Fiber</td>
+                  <td><%= recipe.dietary_fiber %>g</td>
+                  <td><%= recipe.calc_dietary_fiber %>g</td>
+                </tr>
+                <tr>
+                  <td>Sugars</td>
+                  <td><%= recipe.sugars %>g</td>
+                  <td><%= recipe.calc_sugars %>g</td>
+                </tr>
+                <tr>
+                  <td>Protein</td>
+                  <td><%= recipe.protein %>g</td>
+                  <td><%= recipe.calc_protein %>g</td>
+                </tr>
+                <tr>
+                  <td>Cholesterol</td>
+                  <td><%= recipe.cholesterol %>mg</td>
+                  <td><%= recipe.calc_cholesterol %>mg</td>
+                </tr>
+                <tr>
+                  <td>Sodium</td>
+                  <td><%= recipe.sodium %>mg</td>
+                  <td><%= recipe.calc_sodium %>mg</td>
+                </tr>
+                <tr>
+                  <td>Potassium</td>
+                  <td><%= recipe.potassium %>mg</td>
+                  <td><%= recipe.calc_potassium %>mg</td>
+                </tr>
+              </table>
 
               <h5 class="labels substitutions">Substitutions</h5>
               
